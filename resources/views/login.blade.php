@@ -5,7 +5,6 @@
 @section('content')
 <body class="bg-dark text-white">
     <div class="container mt-4">
-        <!-- Back to Home Button -->
         <div class="text-center mb-4">
             <a href="{{ url('/') }}">
                 <button class="btn btn-success">Back To Home</button>
@@ -13,12 +12,10 @@
         </div>
 
         <div class="row justify-content-center align-items-center vh-100">
-            <!-- Glass Effect Login/Sign Up Box -->
             <div class="col-md-4">
-                <div class="bg-dark p-4 rounded shadow-lg" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);">
+                <div class="bg-dark p-4 rounded shadow-lg">
                     <h2 id="form-title" class="text-center fw-bold mb-4">Login</h2>
 
-                    <!-- Login Form -->
                     <div id="login-form">
                         <form id="login-form-action" method="POST">
                             @csrf
@@ -30,8 +27,8 @@
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <div>
-                                    <input type="checkbox" id="remember" name="remember">
-                                    <label for="remember" class="text-white">Remember me</label>
+                                    <input type="checkbox" id="remember" name="remember" class="form-check-input">
+                                    <label for="remember" class="form-check-label text-white">Remember me</label>
                                 </div>
                                 <a href="#" class="text-success">Forgot your password?</a>
                             </div>
@@ -40,7 +37,6 @@
                         </form>
                     </div>
 
-                    <!-- Sign-Up Form -->
                     <div id="signup-form" style="display: none;">
                         <form id="signup-form-action" method="POST">
                             @csrf
