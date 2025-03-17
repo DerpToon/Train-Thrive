@@ -30,4 +30,9 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('Scripts/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('Scripts/Cart.js') }}" defer></script>
+    <script src="{{ asset('Scripts/Common.js') }}" defer></script>
+@endpush
 @include('partials.footer')

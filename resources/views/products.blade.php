@@ -49,4 +49,7 @@
     </div>
     <p class="text-center mt-5">&copy; 2024 Train & Thrive. All Rights Reserved.</p>
 </footer>
+<script src="{{ asset('Scripts/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('Scripts/Products.js') }}" defer></script>
+<script src="{{ asset('Scripts/Common.js') }}" defer></script>
 @endsection
