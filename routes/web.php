@@ -25,3 +25,13 @@ Route::get('/about-us', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
+
+Route::get('/products', function () {
+    return view('products');
+})->name('products');
+
+
