@@ -5,9 +5,9 @@
             <li class="nav-item"><a href="{{ route('home') }}" class="nav-link text-success">Home</a></li>
             <li class="nav-item"><a href="{{ route('workouts') }}" class="nav-link text-success">Workouts</a></li>
             <li class="nav-item"><a href="{{ route('calculator') }}" class="nav-link text-success">Macros Calculator</a></li>
-            <li class="nav-item"><a href="{{ route('shop') }}" class="nav-link text-success" >Shop</a></li>
+            <li class="nav-item"><a href="{{ route('cart') }}" class="nav-link text-success" >Shop</a></li>
             <li class="nav-item"><a href="{{ route('about') }}" class="nav-link text-success">About Us</a></li>
         </ul>
-        <a href="login.html" class="btn btn-success">Login</a>
+        <a href="{{ route('login') }}" class="btn btn-success">Login</a>
     </nav>
 </header>

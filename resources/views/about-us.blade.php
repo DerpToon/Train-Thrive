@@ -15,7 +15,7 @@
                 <p>At <strong>Train & Thrive</strong>, our mission is to provide innovative solutions that transform lives and drive sustainable growth. We are dedicated to delivering excellence and making a positive impact through integrity, innovation, and collaboration.</p>
             </div>
             <div class="col-md-6">
-                <img src="images/About us/mission.jpg" class="img-fluid rounded shadow" alt="Our Mission">
+                <img src="\imgs\About us\mission.jpg" class="img-fluid rounded shadow" alt="Our Mission">
             </div>
         </div>
 
@@ -25,7 +25,7 @@
                 <p>Founded in 2024, <strong>Train & Thrive</strong> Gym began with a simple vision: to create a welcoming space where fitness meets fun. With a focus on community and personalized training, we’ve quickly grown into a fitness hub that empowers individuals to reach their fullest potential, one workout at a time.</p>
             </div>
             <div class="col-md-6">
-                <img src="images/About us/story.jpg" class="img-fluid rounded shadow" alt="Our Story">
+                <img src="\imgs\About us\story.jpg" class="img-fluid rounded shadow" alt="Our Story">
             </div>
         </div>
 

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('title','Cart')
-@extends('layouts.app')
 
 @section('content')
     <div class="container mx-auto p-6">
         <h1 class="text-4xl font-bold text-center text-gray-200 mb-6">Cart</h1>
-        <div id="cart" class="flex flex-col items-center">
+        <div id="cart" class="flex flex-col items-center" style="background-image: url('\imgs\Products\background1.jpg'); background-repeat:no-repeat;
+  background-position: cover;   background-size: 100%;">
             <div id="itemParent" class="w-full max-w-3xl space-y-4"></div>
             <div id="total" class="self-end bg-white shadow-md rounded-lg p-6 w-80">
                 <div id="subtotal" class="text-lg font-semibold mb-4">Subtotal: <span id="total-text" class="text-green-500">$1002</span></div>
@@ -30,4 +30,4 @@
         </div>
     </div>
 @endsection
-@include('partials.footer')
+

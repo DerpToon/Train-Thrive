@@ -3,7 +3,8 @@
 @section('title','workouts')
 
 @section('content')
-<body class="bg-black text-white d-flex flex-column min-vh-100">
+<body class="bg-black text-white d-flex flex-column min-vh-100" style="background-image: url('/imgs/Workouts/background.jpg'); background-repeat:no-repeat;
+  background-position: center;   background-size: 100%;">
 <main class="container text-center py-5">
     <h1 class="text-success fw-bold mb-4 text-uppercase">Select Your Workout</h1>
     <div class="row justify-content-evenly g-4">

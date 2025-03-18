@@ -13,10 +13,10 @@
     <section class="container text-center py-4">
         <h2 class="fw-bold">CATEGORIES</h2>
         <div class="row row-cols-2 row-cols-md-4 g-4">
-            <div class="col"><img src="Images/Home page/powder.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">POWDERS</button></div>
-            <div class="col"><img src="Images/Home page/mass-gainer.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">MASS GAINERS</button></div>
-            <div class="col"><img src="./Images/Products/Product Images/21.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">ENERGY FLAVORS</button></div>
-            <div class="col"><img src="Images/Home page/flakes.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">FLAKES</button></div>
+            <div class="col"><img src="\imgs\Home page\powder.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">POWDERS</button></div>
+            <div class="col"><img src="\imgs\Home page\mass-gainer.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">MASS GAINERS</button></div>
+            <div class="col"><img src="\imgs\Products\Product Images\21.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">ENERGY FLAVORS</button></div>
+            <div class="col"><img src="\imgs\Home page\flakes.png" class="img-fluid"><button class="btn btn-success w-100 mt-2">FLAKES</button></div>
         </div>
     </section>
 

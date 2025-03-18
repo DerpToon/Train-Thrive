@@ -4,9 +4,10 @@
 
 @section('content')
 
-<body class="bg-black text-white d-flex flex-column min-vh-100">
+<body class="bg-black text-white d-flex flex-column min-vh-100" style="background-image: url('/imgs/Calculator/Background.png'); background-repeat:no-repeat;
+  background-position: cover;   background-size: 100%;">
     <main class="container text-center py-5 flex-grow-1">
-        <h1 class="text-success fw-bold mb-4">Macros Calculator</h1>
+        <h1 class="text-success fw-bold mb-4" >Macros Calculator</h1>
         <form id="macros-form" class="mx-auto col-md-6">
             <div class="mb-3">
                 <label for="food-name" class="form-label">Food Item</label>
