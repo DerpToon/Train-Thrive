@@ -1,14 +1,15 @@
 
 @extends('layouts.app')
 
-@section('title','workouts')
+@section('title','Home')
 
 @section('content')
 <body class="bg-dark text-white">
-    <main class="container text-center py-5">
-        <h1 class="fw-bold">TO GIVE IT ALL</h1>
-        <h3 class="text-success">ALWAYS LIVE ACTIVE</h3>
-    </main>
+<main class="container text-center py-5" style="background: url('imgs/Home page/heroImage.jpg') no-repeat center center; background-size: cover;">
+    <h1 class="fw-bold">TO GIVE IT ALL</h1>
+    <h3 class="text-success">ALWAYS LIVE ACTIVE</h3>
+</main>
+
 
     <section class="container text-center py-4">
         <h2 class="fw-bold">CATEGORIES</h2>
