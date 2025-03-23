@@ -74,7 +74,3 @@ require __DIR__.'/auth.php';
 Route::resource('workout', WorkoutController::class);
 
 Route::get('/workouts', [WorkoutController::class,'filterWorkouts'])->name('workouts');
-
-Route::resource('workout', WorkoutController::class);
-
-Route::get('/workouts', [WorkoutController::class,'filterWorkouts'])->name('workouts');
