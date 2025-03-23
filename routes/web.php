@@ -1,14 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WorkoutController;
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/workouts', function () {
-    return view('workout');
-})->name('workouts');
+
 
 Route::get('/calculator', function () {
     return view('calculator');
@@ -38,3 +36,7 @@ Route::get('/products', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+
+Route::resource('workout', WorkoutController::class);
+
+Route::get('/workouts', [WorkoutController::class,'filterWorkouts'])->name('workouts');
