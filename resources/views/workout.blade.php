@@ -3,8 +3,8 @@
 @section('title','Workouts')
 
 @section('content')
-<body class="bg-black text-white d-flex flex-column min-vh-100" style="background: url('/imgs/Workouts/background.jpg') center/cover no-repeat;">
-<main class="container text-center py-5 animate__animated animate__fadeIn">
+<body class="bg-black text-white d-flex flex-column min-vh-100 "  style="background: url('/imgs/Workouts/background.jpg') center/cover no-repeat;">
+<main class="container text-center py-5 animate__animated animate__fadeIn min-vw-80">
     <h1 class="text-success fw-bold mb-4 text-uppercase animate__animated animate__fadeInDown">Select Your Workout</h1>
     <div class="row justify-content-evenly g-4">
         <div class="col-md-5 border border-success rounded p-4 shadow-lg bg-dark animate__animated animate__zoomIn">
@@ -25,17 +25,27 @@
             <button class="btn btn-outline-success m-2 animate__animated animate__shakeX">Reset Muscle</button>
         </div>
     </div>
-    <div id="workout-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4 p-4 animate__animated animate__fadeInUp"></div>
-</main>
+    <!--<div id="workout-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4 p-4 animate__animated animate__fadeInUp">
+       
+      >-->
+      
+      <div id="workout-results" class="d-flex flex-wrap gap-4 mt-4 p-4 animate__animated animate__fadeInUp justify-content-center">
+
+      </div>
+    </main>
 @include('partials.footer')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+
+
 <script>$(document).ready(function () {
     let selectedLevel = '';
     let selectedMuscle = '';
 
     function fetchWorkouts() {
-        $.ajax({
+        $.ajax({    
             url: '/workouts', // Laravel route to fetch workouts
             method: 'GET',
             data: {
@@ -43,11 +53,12 @@
                 muscle: selectedMuscle
             },
             success: function (response) {
+                console.log(response);
                 $('#workout-results').empty(); // Clear previous results
                 if (response.workouts.length > 0) {
                     response.workouts.forEach(workout => {
                         $('#workout-results').append(`
-                            <div class="col-md-4 p-3 border border-success rounded shadow-lg">
+                            <div class="bg-dark rounded-3 col-md-4 p-3 border border-success rounded shadow-lg">
                                 <h4 class="fw-bold text-success">${workout.name}</h4>
                                 <p class="text-white">${workout.description}</p>
                                 <span class="badge bg-success">${workout.level}</span>

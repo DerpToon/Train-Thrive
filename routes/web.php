@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WorkoutController;
 Route::get('/home', function () {
     return view('home');
 })->name('home');

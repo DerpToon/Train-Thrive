@@ -1,4 +1,4 @@
-<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg position-sticky top-0 w-100 py-3">
+<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg position-sticky top-0 w-100 py-3 z-3">
     <div class="container d-flex justify-content-between align-items-center">
         <a href="{{ route('home') }}">
             <img src="./imgs/Workouts/Logo.jpg" alt="Logo" class="rounded-circle" width="64" height="64" />

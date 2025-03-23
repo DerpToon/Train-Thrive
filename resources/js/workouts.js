@@ -11,15 +11,21 @@ $(document).ready(function () {
                 muscle: selectedMuscle
             },
             success: function (response) {
+                console.log(response);
                 $('#workout-results').empty(); // Clear previous results
                 if (response.workouts.length > 0) {
                     response.workouts.forEach(workout => {
                         $('#workout-results').append(`
-                            <div class="col-md-4 p-3 border border-success rounded shadow-lg">
-                                <h4 class="fw-bold text-success">${workout.name}</h4>
-                                <p class="text-white">${workout.description}</p>
-                                <span class="badge bg-success">${workout.level}</span>
-                                <span class="badge bg-warning">${workout.muscle_group}</span>
+                            <div class="col-md-4 p-3 border border-success rounded shadow-lg bg-dark">
+                             <div class="card p-3">
+                             <h4 class="fw-bold text-success mb-2">${workout.name}</h4>
+                            <p class="text-white mb-3">${workout.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success text-dark fw-bold">${workout.level}</span>
+                            <span class="badge bg-warning text-dark fw-bold">${workout.muscle_group}</span>
+                            </div>
+                            <button class="btn btn-success w-100 mt-3">Start Workout</button>
+                            </div>
                             </div>
                         `);
                     });

@@ -10,27 +10,26 @@ class WorkoutController extends Controller
      * Display a listing of the resource.
      */
     public function filterWorkouts(Request $request)
-{
-    $query = Workout::query();
+    {   if($request->ajax()){
+        $query = Workout::query();
+        
+        if ($request->has('level') && !empty($request->level)) {
+            $query->where('level', $request->level);
+        }
+    
+        if ($request->has('muscle') && !empty($request->muscle)) {
+            $query->where('muscle_group', $request->muscle);
+        }
+    
+        $workouts = $query->get();
 
-    if ($request->has('level') && !empty($request->level)) {
-        $query->where('level', $request->level);
+    
+        // Force return JSON to prevent returning HTML
+        return response()->json(['workouts' => $workouts], 200);
     }
-
-    if ($request->has('muscle') && !empty($request->muscle)) {
-        $query->where('muscle_group', $request->muscle);
+        return view('workout');
     }
-
-    $workouts = $query->get();
-
-    // Check if the request expects a JSON response
-    if ($request->wantsJson()) {
-        return response()->json(['workouts' => $workouts]);
-    }
-
-    // If not, return the view
-    return view('workout', compact('workouts'));
-}
+    
 
 
     public function index()
