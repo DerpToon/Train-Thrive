@@ -7,9 +7,6 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-
-
-
 Route::get('/calculator', function () {
     return view('calculator');
 })->name('calculator');
