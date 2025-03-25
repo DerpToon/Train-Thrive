@@ -71,3 +71,13 @@ require __DIR__.'/auth.php';
 Route::resource('workout', WorkoutController::class);
 
 Route::get('/workouts', [WorkoutController::class,'filterWorkouts'])->name('workouts');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+});
+
+
+Route::post('/logout', function () {
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect()->route('home');
+})->name('logout');
