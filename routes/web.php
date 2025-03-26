@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\CartController;
+
 Route::get('/home', function () {
     return view('home');
 })->name('home');
@@ -81,3 +83,9 @@ Route::post('/logout', function () {
     \Illuminate\Support\Facades\Auth::logout();
     return redirect()->route('home');
 })->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+});
