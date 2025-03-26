@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
