@@ -23,7 +23,7 @@
                 Hello, {{ auth()->user()->name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
