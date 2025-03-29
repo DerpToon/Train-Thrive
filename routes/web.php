@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CalculatorController;
 
 Route::get('/home', function () {
     return view('home');
@@ -87,3 +88,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 });
+
+Route::get('/food-items', [CalculatorController::class, 'getFoodItems']);
