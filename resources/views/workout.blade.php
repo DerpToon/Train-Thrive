@@ -24,11 +24,7 @@
             <button class="btn btn-success m-2 animate__animated animate__bounceIn">Core</button>
             <button class="btn btn-outline-success m-2 animate__animated animate__shakeX">Reset Muscle</button>
         </div>
-    </div>
-    <!--<div id="workout-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4 p-4 animate__animated animate__fadeInUp">
-       
-      >-->
-      
+    </div>      
       <div id="workout-results" class="d-flex flex-wrap gap-4 mt-4 p-4 animate__animated animate__fadeInUp justify-content-center">
 
       </div>
