@@ -5,7 +5,7 @@
 @section('content')
 <body class="bg-dark text-white">
     <div class="container mt-4">
-        <div class="text-center mb-4">
+    <div class="d-flex justify-content-start mb-4">
             <a href="{{ route('home') }}">
                 <button class="btn btn-success">Back To Home</button>
             </a>
