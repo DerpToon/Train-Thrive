@@ -5,7 +5,7 @@
 @section('content')
 <body class="bg-dark text-white">
     <div class="container mt-4">
-    <div class="d-flex justify-content-start mb-4">
+        <div class="d-flex justify-content-start mb-4">
             <a href="{{ route('home') }}">
                 <button class="btn btn-success">Back To Home</button>
             </a>
@@ -55,6 +55,12 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-success w-100">Register</button>
+
+                        <!-- Google Registration Button -->
+                        <a href="{{ url('/auth/google') }}" class="btn btn-danger w-100 mt-3">
+                            <i class="fab fa-google"></i> Register with Google
+                        </a>
+
                         <p class="text-center mt-3">Already have an account? <a href="{{ route('login') }}" class="text-success">Login</a></p>
                     </form>
                 </div>

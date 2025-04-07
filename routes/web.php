@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 
 Route::get('/home', function () {
     return view('home');
@@ -90,3 +91,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/food-items', [CalculatorController::class, 'getFoodItems']);
+
+
+
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
