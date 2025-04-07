@@ -22,6 +22,7 @@ class User extends Authenticatable
         'phone', // Added phone number
         'privilege', // Added privilege
         'password',
+        'profile_photo',
     ];
 
     /**

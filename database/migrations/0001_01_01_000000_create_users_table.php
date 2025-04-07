@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
+            $table->string('profile_photo')->nullable();
             $table->string('privilege')->default('user'); 
             $table->string('password');
-            $table->string('google_id')->nullable()->unique(); // Added for Google authentication
+            $table->string('google_id')->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
         });
