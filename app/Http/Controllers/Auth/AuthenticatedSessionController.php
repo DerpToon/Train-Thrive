@@ -25,23 +25,29 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'login' => ['required', 'string'], // This will accept either email or name
+            'login' => ['required', 'string'], // Accepts either email or name
             'password' => ['required', 'string'],
         ]);
     
-        // Check if input is an email or name
         $fieldType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
     
-        // Attempt login
         if (Auth::attempt([$fieldType => $request->login, 'password' => $request->password], $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->route('home'); // Redirect to home page after login
+            
+            $user = Auth::user();
+    
+            if ($user->privilege === 'admin') {
+                return redirect()->route('admin.dashboard'); 
+            }
+    
+            return redirect()->route('home'); 
         }
     
         return back()->withErrors([
             'login' => __('The provided credentials do not match our records.'),
         ]);
     }
+    
     
     
     

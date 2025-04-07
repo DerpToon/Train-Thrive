@@ -34,6 +34,13 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control bg-dark text-white border-light" id="phone" name="phone" required placeholder="Phone Number">
+                            @error('phone')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control bg-dark text-white border-light" id="password" name="password" required placeholder="Password">
                             @error('password')

@@ -28,23 +28,26 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-    
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-    
-        event(new Registered($user));
-    
-        Auth::login($user);
-    
-        return redirect('/home');
-    }
+{
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+        'phone' => ['required', 'string', 'max:20', 'unique:users'], // Added phone validation
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone, // Save phone number
+        'privilege' => 'user', // Set privilege to 'user'
+        'password' => Hash::make($request->password),
+    ]);
+
+    event(new Registered($user));
+
+    Auth::login($user);
+
+    return redirect('/home');
+}
 }    
