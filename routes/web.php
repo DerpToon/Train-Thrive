@@ -7,6 +7,16 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReviewApiController;
+
+Route::post('/reviews', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('reviews.store');
+
+    Route::get('/reviews', [ReviewApiController::class, 'index']);
+    
+    
 Route::get('/home', function () {
     return view('home');
 })->name('home');
@@ -97,3 +107,5 @@ Route::get('/food-items', [CalculatorController::class, 'getFoodItems']);
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+
