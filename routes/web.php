@@ -24,6 +24,10 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
+
 Route::get('/shop', function () {
     return view('products');
 })->name('shop');
