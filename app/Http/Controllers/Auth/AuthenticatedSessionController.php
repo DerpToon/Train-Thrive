@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
             $user = Auth::user();
     
             if ($user->privilege === 'admin') {
-                return redirect()->route('admin'); 
+                return redirect()->route('home'); 
             }
     
             return redirect()->route('home'); 

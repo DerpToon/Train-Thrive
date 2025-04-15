@@ -89,4 +89,3 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 // Include Auth Routes
 require __DIR__.'/auth.php';
 
-
