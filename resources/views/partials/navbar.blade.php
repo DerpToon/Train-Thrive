@@ -11,7 +11,7 @@
                 <li class="nav-item"><a href="{{ route('home') }}" class="nav-link text-success fw-semibold">Home</a></li>
                 <li class="nav-item"><a href="{{ route('workouts') }}" class="nav-link text-success fw-semibold">Workouts</a></li>
                 <li class="nav-item"><a href="{{ route('calculator') }}" class="nav-link text-success fw-semibold">Macros Calculator</a></li>
-                <li class="nav-item"><a href="{{route('cart.index')}}" class="nav-link text-success fw-semibold">Shop</a></li>
+                <li class="nav-item"><a href="{{route('products')}}" class="nav-link text-success fw-semibold">Shop</a></li>
                 <li class="nav-item"><a href="{{ route('about') }}" class="nav-link text-success fw-semibold">About Us</a></li>
             </ul>
         </div>

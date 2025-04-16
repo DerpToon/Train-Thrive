@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkoutController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReviewApiController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 
 // Home Route
 Route::get('/', function () {
@@ -20,7 +22,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Static Pages
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 
@@ -68,12 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/food-items', [CalculatorController::class, 'getFoodItems']);
 });
 
-// Cart Routes (requires authentication)
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-});
+
 
 // Review Routes
 Route::post('/reviews', [ReviewController::class, 'store'])
@@ -89,3 +86,9 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 // Include Auth Routes
 require __DIR__.'/auth.php';
 
+
+Route::post('/cart/add', [CartController::class, 'add'])->middleware('auth');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+
+
+Route::get('/products', [CategoryController::class, 'index'])->name('products');

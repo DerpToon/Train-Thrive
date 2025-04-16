@@ -2,28 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
-use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function index() {
-        $cartItems = Cart::where('user_id', auth()->id())->with('product')->get();
-        return view('cart.index', compact('cartItems'));
+    /**
+     * Display a listing of the resource.
+     */
+    public function add(Request $request) {
+        $productId = $request->product_id;
+        $userId = auth()->id();
+    
+        $cartItem = Cart::where('user_id', $userId)
+                        ->where('product_id', $productId)
+                        ->first();
+    
+        if (!$cartItem) {
+            Cart::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+                'quantity' => 1
+            ]);
+        }
+    
+        return response()->json(['status' => 'added']);
+    }
+    
+    public function index()
+    {
+        //
     }
 
-    public function addToCart(Request $request) {
-        $cart = Cart::updateOrCreate(
-            ['user_id' => auth()->id(), 'product_id' => $request->product_id],
-            ['quantity' => DB::raw("quantity + $request->quantity")]
-        );
-        return response()->json($cart);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
-    public function removeFromCart($id) {
-        Cart::where('user_id', auth()->id())->where('product_id', $id)->delete();
-        return response()->json(['message' => 'Item removed']);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
-
