@@ -33,10 +33,12 @@ class WorkoutController extends Controller
 
 
     public function index()
-    {   
+    {
+        // Fetch all workout data
         $workouts = Workout::all();
-      
-        return view('workout');
+
+        // Return the view with the data
+        return view('admin.workout.workoutindex', compact('workouts'));
     }
 
     /**
@@ -92,11 +94,11 @@ class WorkoutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $workout = Workout::findOrFail($id);
         $workout->delete();
-
-        return redirect()->route('admin')->with('success', 'Workout deleted successfully!');
+    
+        return redirect()->route('workouts.index')->with('success', 'Workout deleted successfully!');
     }
 }

@@ -20,8 +20,11 @@ class CalculatorController extends Controller
 
     public function index()
     {
+        // Fetch all calculator data
         $calculators = Calculator::all();
-        return view('admin', compact('calculators'));
+
+        // Return the view with the data
+        return view('admin.calculator.calculatorindex', compact('calculators'));
     }
 
     /**

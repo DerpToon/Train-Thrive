@@ -112,3 +112,8 @@ Route::post('/workoutsInsert', [WorkoutController::class, 'store'])->name('worko
 Route::post('/calculatorUpdate', [CalculatorController::class, 'update'])->name('calculatorUpdate.store');
 Route::post('/workoutUpdate', [WorkoutController::class, 'update'])->name('workoutUpdate.store');
 
+
+Route::get('/admin/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
+Route::get('/admin/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
+
+Route::delete('/admin/workouts/{id}', [WorkoutController::class, 'destroy'])->name('workouts.destroy');
