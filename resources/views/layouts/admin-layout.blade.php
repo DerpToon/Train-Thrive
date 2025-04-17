@@ -23,6 +23,16 @@
                                 <i class="bi bi-house"></i> Dashboard
                             </a>
                         </li>
+                        <li class="nav-item">
+        <a class="nav-link text-white {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
+            <i class="bi bi-people"></i> Users
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-white {{ request()->routeIs('reviews.index') ? 'active' : '' }}" href="{{ route('reviews.index') }}">
+            <i class="bi bi-chat-dots"></i> Reviews
+        </a>
+    </li>
                 
 <ul class="nav flex-column" id="sidebarMenu">
     <li class="nav-item">

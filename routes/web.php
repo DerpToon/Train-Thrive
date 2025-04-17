@@ -10,6 +10,8 @@ use App\Http\Controllers\ReviewApiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+
 
 // Home Route
 Route::get('/', function () {
@@ -117,3 +119,8 @@ Route::get('/admin/calculator', [CalculatorController::class, 'index'])->name('c
 Route::get('/admin/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
 
 Route::delete('/admin/workouts/{id}', [WorkoutController::class, 'destroy'])->name('workouts.destroy');
+Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
+Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');

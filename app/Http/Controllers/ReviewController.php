@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,7 +6,29 @@ use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
-{   
+{
+    public function adminIndex()
+    {
+        // Fetch all reviews with the user relationship
+        $reviews = Review::with('user')->get();
+
+        // Return the admin view with the data
+        return view('admin.review.reviewindex', compact('reviews'));
+    }
+
+    /**
+     * Delete a review.
+     */
+    public function destroy($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->delete();
+
+        return redirect()->route('reviews.index')->with('success', 'Review deleted successfully!');
+    }
+    /**
+     * Display the latest review and random reviews for the user.
+     */
     public function index()
     {
         // Get the latest review from the logged-in user, if any.
