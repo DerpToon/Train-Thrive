@@ -10,18 +10,13 @@ class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     */
-    public function run(): void
+     */ public function run(): void
     {
-        //
         $categories = [
-            ['name' => 'Protein Powders', 'image' => 'Images/Products/protein.jpg'],
-            ['name' => 'Flakes', 'image' => 'Images/Products/flakes.jpg'],
-            ['name' => 'Mass Gainers', 'image' => 'imgs/Products/mass.jpg'],
-            ['name' => 'Meal Replacements', 'image' => '/imgs/Products/mealreplacement.jpg'],
-            ['name' => 'Protein Bars', 'image' => '/imgs/Products/proteinbar.jpg'],
-            ['name' => 'Protein Snacks', 'image' => '/imgs/Products/snacks.jpg'],
-            ['name' => 'Energy Flavors', 'image' => '/public/imgs/Products/energy.jpg'],
+            ['name' => 'Protein Powders', 'image' => './Images/Products/protien.png'],
+            ['name' => 'Flakes', 'image' => './Images/Products/flakes.png'],
+            ['name' => 'Mass Gainer', 'image' => './Images/Products/mass.png'],
+            ['name' => 'Energy Flavors', 'image' => './Images/Products/energy.png'],
         ];
 
         foreach ($categories as $category) {
