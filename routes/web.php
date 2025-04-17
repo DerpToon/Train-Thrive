@@ -92,3 +92,23 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middl
 
 
 Route::get('/products', [CategoryController::class, 'index'])->name('products');
+
+Route::get('/workoutInsert', function(){
+    return view('admin.workoutInsert');
+})->name('workoutInsert');
+
+Route::get('/calculatorInsert', function() {
+    return view('admin.calculatorInsert');
+})->name('calculatorInsert');
+Route::get('/workoutUpdate', function() {
+    return view('admin.workoutUpdate');
+})->name('workoutUpdate');
+Route::get('/calculatorUpdate', function() {
+    return view('admin.calculatorUpdate');
+})->name('calculatorUpdate');
+
+Route::post('/calculatorInsert', [CalculatorController::class, 'store'])->name('calculatorInsert.store');
+Route::post('/workoutsInsert', [WorkoutController::class, 'store'])->name('workoutInsert.store');
+Route::post('/calculatorUpdate', [CalculatorController::class, 'update'])->name('calculatorUpdate.store');
+Route::post('/workoutUpdate', [WorkoutController::class, 'update'])->name('workoutUpdate.store');
+

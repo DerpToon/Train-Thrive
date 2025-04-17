@@ -20,15 +20,17 @@ class CalculatorController extends Controller
 
     public function index()
     {
-        //
+        $calculators = Calculator::all();
+        return view('admin', compact('calculators'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function adminCalculator()
     {
-        //
+        $calculators = Calculator::all();
+        return view('admin', compact('calculators'));
     }
 
     /**
@@ -36,7 +38,17 @@ class CalculatorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'protein' => 'required|numeric',
+            'carbs' => 'required|numeric',
+            'fats' => 'required|numeric',
+            'calories' => 'required|numeric',
+        ]);
+    
+        Calculator::create($request->all());
+    
+        return redirect()->route('admin')->with('success', 'Calculator added successfully!');
     }
 
     /**
@@ -68,6 +80,9 @@ class CalculatorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $calculator = Calculator::findOrFail($id);
+    $calculator->delete();
+
+    return redirect()->route('admin')->with('success', 'Calculator deleted successfully!');
     }
 }

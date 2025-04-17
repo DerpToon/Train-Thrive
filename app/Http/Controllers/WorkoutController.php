@@ -33,16 +33,19 @@ class WorkoutController extends Controller
 
 
     public function index()
-    {
+    {   
+        $workouts = Workout::all();
+      
         return view('workout');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function adminWorkout()
     {
-        //
+        $workouts = Workout::all();
+        return view('admin', compact('workouts'));
     }
 
     /**
@@ -50,7 +53,16 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'muscle_group' => 'required|string|max:255',
+            'level' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        Workout::create($request->all());
+
+        return redirect()->route('admin')->with('success', 'Workout added successfully!');
     }
 
     /**
@@ -82,6 +94,9 @@ class WorkoutController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $workout = Workout::findOrFail($id);
+        $workout->delete();
+
+        return redirect()->route('admin')->with('success', 'Workout deleted successfully!');
     }
 }
