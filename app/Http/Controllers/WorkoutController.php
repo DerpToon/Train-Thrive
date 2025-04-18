@@ -30,15 +30,16 @@ class WorkoutController extends Controller
         return view('workout');
     }
     
-
+    public function create(){
+        return view('admin.workout.workoutInsert');
+    }
 
     public function index()
     {
-        // Fetch all workout data
         $workouts = Workout::all();
+        $muscleGroups = Workout::select('muscle_group')->distinct()->pluck('muscle_group');
 
-        // Return the view with the data
-        return view('admin.workout.workoutindex', compact('workouts'));
+        return view('admin.workout.workoutindex', compact('workouts', 'muscleGroups'));
     }
 
     /**
@@ -64,7 +65,7 @@ class WorkoutController extends Controller
 
         Workout::create($request->all());
 
-        return redirect()->route('admin')->with('success', 'Workout added successfully!');
+        return redirect()->route('workout.index')->with('success', 'Workout added successfully!');
     }
 
     /**
@@ -80,15 +81,27 @@ class WorkoutController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.workout.workoutUpdate', [
+            'workout' => Workout::findOrFail($id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'muscle_group' => 'required|string|max:255',
+            'level' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $workout = Workout::findOrFail($id);
+        $workout->update($request->all());
+
+        return redirect()->route('workouts.index')->with('success', 'Workout updated successfully!');
     }
 
     /**

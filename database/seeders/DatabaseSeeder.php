@@ -12,7 +12,10 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
+    {   
+        $this->call(CalculatorSeeder::class);
+        $this->call(WorkoutsSeeder::class);
+
         // User::factory(10)->create();
         $this->call([
             CategorySeeder::class,

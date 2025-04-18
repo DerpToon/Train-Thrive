@@ -95,19 +95,6 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middl
 
 Route::get('/products', [CategoryController::class, 'index'])->name('products');
 
-Route::get('/workoutInsert', function(){
-    return view('admin.workoutInsert');
-})->name('workoutInsert');
-
-Route::get('/calculatorInsert', function() {
-    return view('admin.calculatorInsert');
-})->name('calculatorInsert');
-Route::get('/workoutUpdate', function() {
-    return view('admin.workoutUpdate');
-})->name('workoutUpdate');
-Route::get('/calculatorUpdate', function() {
-    return view('admin.calculatorUpdate');
-})->name('calculatorUpdate');
 
 Route::post('/calculatorInsert', [CalculatorController::class, 'store'])->name('calculatorInsert.store');
 Route::post('/workoutsInsert', [WorkoutController::class, 'store'])->name('workoutInsert.store');
@@ -124,3 +111,20 @@ Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('us
 
 Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
 Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+// Workout Routes
+Route::get('/admin/workouts', [WorkoutController::class, 'index'])->name('workouts.index'); // List all workouts
+Route::get('/admin/workouts/create', [WorkoutController::class, 'create'])->name('workouts.create'); // Show insert form
+Route::post('/admin/workouts', [WorkoutController::class, 'store'])->name('workouts.store'); // Insert workout
+Route::get('/admin/workouts/{id}/edit', [WorkoutController::class, 'edit'])->name('workouts.edit'); // Show update form
+Route::put('/admin/workouts/{id}', [WorkoutController::class, 'update'])->name('workouts.update'); // Update workout
+Route::delete('/admin/workouts/{id}', [WorkoutController::class, 'destroy'])->name('workouts.destroy'); // Delete workout
+
+// Calculator Routes
+Route::get('/admin/calculators', [CalculatorController::class, 'index'])->name('calculator.index'); // List all calculators
+Route::get('/admin/calculators/create', [CalculatorController::class, 'create'])->name('calculator.create'); // Show insert form
+Route::post('/admin/calculators', [CalculatorController::class, 'store'])->name('calculator.store'); // Insert calculator
+Route::get('/admin/calculators/{id}/edit', [CalculatorController::class, 'edit'])->name('calculator.edit'); // Show update form
+Route::put('/admin/calculators/{id}', [CalculatorController::class, 'update'])->name('calculator.update'); // Update calculator
+Route::delete('/admin/calculators/{id}', [CalculatorController::class, 'destroy'])->name('calculator.destroy'); // Delete calculator
+Route::get('/admin/calculators/search', [CalculatorController::class, 'search'])->name('calculator.search');

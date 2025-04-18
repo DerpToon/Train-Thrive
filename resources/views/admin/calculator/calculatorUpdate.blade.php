@@ -8,7 +8,7 @@
     <h1 class="text-center">Update Calculator</h1>
     <div class="card shadow-sm mt-4">
         <div class="card-body">
-            <form action="{{ route('calculatorUpdate.store', $calculator->id) }}" method="POST">
+            <form action="{{ route('calculator.update', $calculator->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -32,7 +32,7 @@
                     <input type="number" name="calories" id="calories" class="form-control" value="{{ $calculator->calories }}" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Calculator</button>
-                <a href="{{ route('admin) }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('calculator.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

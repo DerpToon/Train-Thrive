@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@include('partials.navbar')
+
 
 @section('title', 'Add New Workout')
 
@@ -28,7 +28,7 @@
                     <textarea class="form-control" name="description" id="workoutDescription" rows="3" placeholder="Enter workout description" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">Add Workout</button>
-                <a href="{{ route('admin') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('workout.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

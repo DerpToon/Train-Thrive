@@ -31,7 +31,7 @@
                     <input type="number" name="calories" id="calories" class="form-control" placeholder="Enter calories value" required>
                 </div>
                 <button type="submit" class="btn btn-success">Add Calculator</button>
-                <a href="{{ route('admin') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('calculator.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

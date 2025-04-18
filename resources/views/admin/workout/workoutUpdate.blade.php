@@ -2,14 +2,12 @@
 
 @section('title', 'Update Workout')
 
-@include('partials.navbar')
-
 @section('content')
 <div class="container mt-5">
     <h1 class="text-center">Update Workout</h1>
     <div class="card shadow-sm mt-4">
         <div class="card-body">
-            <form action="{{ route('workoutUpdate.store', $workout->id) }}" method="POST">
+            <form action="{{ route('workouts.update', $workout->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -29,7 +27,7 @@
                     <textarea name="description" id="description" class="form-control" rows="3" required>{{ $workout->description }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Workout</button>
-                <a href="{{ route('admin) }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('workouts.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

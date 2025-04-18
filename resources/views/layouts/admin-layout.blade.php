@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        /* Make the sidebar sticky */
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -24,28 +32,33 @@
                             </a>
                         </li>
                         <li class="nav-item">
-        <a class="nav-link text-white {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
-            <i class="bi bi-people"></i> Users
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-white {{ request()->routeIs('reviews.index') ? 'active' : '' }}" href="{{ route('reviews.index') }}">
-            <i class="bi bi-chat-dots"></i> Reviews
-        </a>
-    </li>
-                
-<ul class="nav flex-column" id="sidebarMenu">
-    <li class="nav-item">
-        <a class="nav-link text-white {{ request()->routeIs('calculator.index') ? 'active' : '' }}" href="{{ route('calculator.index') }}">
-            <i class="bi bi-calculator"></i> Calculator
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-white {{ request()->routeIs('workouts.index') ? 'active' : '' }}" href="{{ route('workouts.index') }}">
-            <i class="bi bi-dumbbell"></i> Workouts
-        </a>
-    </li>
-</ul>
+                            <a class="nav-link text-white {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                                <i class="bi bi-people"></i> Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->routeIs('reviews.index') ? 'active' : '' }}" href="{{ route('reviews.index') }}">
+                                <i class="bi bi-chat-dots"></i> Reviews
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->routeIs('calculator.index') ? 'active' : '' }}" href="{{ route('calculator.index') }}">
+                                <i class="bi bi-calculator"></i> Calculator
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->routeIs('workouts.index') ? 'active' : '' }}" href="{{ route('workouts.index') }}">
+                                <i class="bi bi-dumbbell"></i> Workouts
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Return to Home Button -->
+                    <div class="mt-auto">
+                        <a href="{{ url('/') }}" class="btn btn-light w-100 mt-3">
+                            <i class="bi bi-arrow-left-circle"></i> Return to Home
+                        </a>
+                    </div>
                 </div>
             </nav>
 

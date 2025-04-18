@@ -17,6 +17,14 @@ class CalculatorController extends Controller
         return response()->json($foodItems);
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $calculators = Calculator::where('name', 'LIKE', "%{$search}%")->get();
+
+        return response()->json($calculators);
+    }
 
     public function index()
     {
@@ -33,7 +41,7 @@ class CalculatorController extends Controller
     public function adminCalculator()
     {
         $calculators = Calculator::all();
-        return view('admin', compact('calculators'));
+        return view('admin.calculator.calculatorindex', compact('calculators'));
     }
 
     /**
@@ -67,7 +75,8 @@ class CalculatorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $calculator = Calculator::findOrFail($id);
+        return view('admin.calculator.calculatorUpdate', compact('calculator'));
     }
 
     /**
@@ -75,7 +84,18 @@ class CalculatorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'protein' => 'required|numeric',
+            'carbs' => 'required|numeric',
+            'fats' => 'required|numeric',
+            'calories' => 'required|numeric',
+        ]);
+
+        $calculator = Calculator::findOrFail($id);
+        $calculator->update($request->all());
+
+        return redirect()->route('calculator.index')->with('success', 'Calculator updated successfully!');
     }
 
     /**
@@ -84,8 +104,12 @@ class CalculatorController extends Controller
     public function destroy(string $id)
     {
         $calculator = Calculator::findOrFail($id);
-    $calculator->delete();
+        $calculator->delete();
 
-    return redirect()->route('admin')->with('success', 'Calculator deleted successfully!');
+        return redirect()->route('admin')->with('success', 'Calculator deleted successfully!');
+    }
+    public function create()
+    {
+    return view('admin.calculator.calculatorInsert');
     }
 }
