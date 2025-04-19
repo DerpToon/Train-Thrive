@@ -32,30 +32,7 @@
             </div>
         </div>
     </section>
-    <section class="exclusive-services container bg-dark text-white rounded p-4 my-5">
-        <h2 class="text-center mt-4 mb-4">EXCLUSIVE SERVICES</h2>
-        <div class="d-flex justify-content-center gap-4 flex-wrap">
-            <a href="{{ url('About-Us.html') }}" class="text-decoration-none text-white">
-                <div class="service-card text-center p-3 bg-success rounded d-flex flex-column align-items-center">
-                    <img src="{{ asset('imgs/Home page/Loyalty.png') }}" alt="Loyalty Program icon" class="img-fluid" style="width: 120px; height: 120px;">
-                    <h3 class="mt-2">Loyalty Program</h3>
-                </div>
-            </a>
-            <a href="{{ url('Workouts.html') }}" class="text-decoration-none text-white">
-                <div class="service-card text-center p-3 bg-success rounded d-flex flex-column align-items-center">
-                    <img src="{{ asset('imgs/Home page/Plans.png') }}" alt="Workouts Plans icon" class="img-fluid" style="width: 120px; height: 120px;">
-                    <h3 class="mt-2">Workouts Plans</h3>
-                </div>
-            </a>
-            <a href="#nutrition-advice-section" class="text-decoration-none text-white">
-                <div class="service-card text-center p-3 bg-success rounded d-flex flex-column align-items-center">
-                    <img src="{{ asset('imgs/Home page/Nutrition.png') }}" alt="Nutrition Advice icon" class="img-fluid" style="width: 120px; height: 120px;">
-                    <h3 class="mt-2">Nutrition Advice</h3>
-                </div>
-            </a>
-        </div>
-    </section>
-    
+
     <section class="container text-center py-4" id="nutrition-advice-section">
     <h2 class="fw-bold mt-4 mb-4">NUTRITION ADVICE</h2>
     <div class="row justify-content-center">
@@ -100,6 +77,40 @@
         </div>
     </div>
 
+
+   <section class="exclusive-services container bg-dark text-white rounded p-5 my-5 shadow">
+    <h2 class="text-center mb-5 display-5 fw-bold">Exclusive Services</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <a href="{{ url('About-Us.html') }}" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Loyalty.png') }}" alt="Loyalty Program icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Loyalty Program</h4>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url('Workouts.html') }}" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Plans.png') }}" alt="Workout Plans icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Workout Plans</h4>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#nutrition-advice-section" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Nutrition.png') }}" alt="Nutrition Advice icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Nutrition Advice</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+   
 
     <section class="container text-center py-4">
         <h2 class="fw-bold mt-4 mb-4">Customer Reviews</h2>
@@ -232,7 +243,16 @@
     });
 });
     </script>
+<style>
+    .transition-hover {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
+    .transition-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+</style>
     @include('partials.footer')
 
 </body>
