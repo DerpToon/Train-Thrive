@@ -19,11 +19,11 @@
                 <button class="btn btn-success w-100 mt-2">POWDERS</button>
             </div>
             <div class="col">
-                <img src="{{ asset('imgs/Home page/mass-gainer.png') }}" class="img-fluid">
+                <img src="{{ asset('imgs/Home page/mass-gainer.png ') }}" class="img-fluid">
                 <button class="btn btn-success w-100 mt-2">MASS GAINERS</button>
             </div>
             <div class="col">
-                <img src="{{ asset('imgs/Products/Product Images/21.png') }}" class="img-fluid">
+                <img src="{{ asset('imgs/Home page/Energyflavors.png') }}" class="img-fluid">
                 <button class="btn btn-success w-100 mt-2">ENERGY FLAVORS</button>
             </div>
             <div class="col">
