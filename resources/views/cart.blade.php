@@ -27,21 +27,30 @@
                         <td class="p-4">
                             <input type="number" min="1" class="quantity-input w-16 p-1 border" data-id="{{ $item->product_id }}" value="{{ $item->quantity }}">
                         </td>
-                        <td class="p-4">${{ $item->product->price * $item->quantity }}</td>
+                        <td class="p-4">${{ number_format($item->product->price * $item->quantity, 2) }}</td>
                         <td class="p-4">
                             <button class="remove-btn bg-red-500 text-white px-3 py-1 rounded" data-id="{{ $item->product_id }}">Remove</button>
                         </td>
                     </tr>
                 @endforeach
+                <tr class="font-bold bg-green-100">
+                    <td colspan="3" class="p-4 text-right">Total:</td>
+                    <td class="p-4">${{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->quantity), 2) }}</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
+
+        <div class="text-right mt-6">
+            <a href="{{ route('checkout.index') }}" class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700">Proceed to Checkout</a>
+        </div>
     @endif
 </div>
 
 <script>
     $(document).ready(function() {
         // Update cart quantity
-        $('.update-quantity').change(function() {
+        $('.quantity-input').change(function() {
             const productId = $(this).data('id');
             const quantity = $(this).val();
 
@@ -55,7 +64,7 @@
                 },
                 success: function(response) {
                     alert(response.message);
-                    location.reload(); // Reload to update totals
+                    location.reload(); // Refresh totals
                 },
                 error: function(xhr) {
                     alert('Failed to update the cart.');
@@ -64,7 +73,7 @@
         });
 
         // Remove item from cart
-        $('.remove-from-cart').click(function() {
+        $('.remove-btn').click(function() {
             if (!confirm('Are you sure you want to remove this item?')) {
                 return;
             }
@@ -80,7 +89,7 @@
                 },
                 success: function(response) {
                     alert(response.message);
-                    location.reload(); // Reload to update cart
+                    location.reload(); // Refresh the cart
                 },
                 error: function(xhr) {
                     alert('Failed to remove the product from the cart.');

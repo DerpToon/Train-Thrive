@@ -3,46 +3,58 @@
 @section('title', 'Shop')
 
 @section('content')
-<body class="bg-dark text-black">
-<div style="background-image: url({{ asset("imgs/Products/background1.jpg") }}); background-size: cover; transition: background-size 0.3s ease-in-out; padding: 20px;">
-<p id="login-alert" class="text-red-500 text-lg font-bold opacity-0 transition-opacity">You need to login!</p>
- <div class="flex justify-center items-center h-full text-center bg-cover bg-center py-10" >
-    <p class="text-4xl text-white font-bold">
-        "<span class="text-black font-bold">FUEL</span> Your Fitness: <br> Premier Protein <br> Supplements Await."
-    </p>
- </div>
-
- <div class="bg-green-100 py-10"> 
-    <div class="search-container text-center bg-green-100 py-10">
-        <input type="text" id="search-bar"  class="w-3/4 md:w-1/2 p-3 text-xl text-dark-green bg-green-500 border-2 border-green-500 rounded-full placeholder-green focus:ring focus:ring-green-300 hover:bg-green-600 transition-colors" 
-        placeholder="Find the perfect workout gear">
+<div class="position-relative" style="background-image: url('{{ asset('imgs/Products/background1.jpg') }}'); background-size: cover; height: 60vh;">
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0,0,0,0.5);">
+        <h1 class="text-white text-center fw-bold display-4">
+            <span class="text-success">FUEL</span> Your Fitness<br>Premier Protein Supplements Await
+        </h1>
     </div>
-  </div>
-  </div>
+</div>
 
-  <div class="products-container mt-10 px-4 md:px-20">
-            @foreach ($categories as $category)
-            <h2 id="{{ strtolower(str_replace(' ', '-', $category->name)) }}" class="text-3xl font-bold text-green-700 mt-10">{{ $category->name }}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                @foreach ($category->products as $product)
-                    <div class="product-card border border-green-500 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover rounded-md">
-                        <h3 class="product-name text-xl font-semibold mt-4 text-green-700">{{ $product->name }}</h3>
-                        <p class="text-green-500 font-bold text-lg mt-2">${{ $product->price }}</p>
-                        @if (in_array($product->id, $cartItems))
-                            <a href="{{ route('cart.index') }}" class="btn bg-green-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-green-600">Go To Cart</a>
-                        @else
-                        <button class="add-to-cart btn bg-green-500 text-white font-bold py-3 px-6 rounded-full mt-4 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" data-id="{{ $product->id }}">
-                            Add To Cart
-                        </button>
-                        @endif
-                    </div>
-                @endforeach
+<div class="bg-dark text-white py-5">
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <input type="text" id="search-bar" class="form-control form-control-lg bg-black text-white border-success" placeholder="Search for products...">
+            </div>
+        </div>
+
+        <!-- Categories and Products -->
+        @foreach ($categories as $category)
+            <div class="mb-5">
+                <h2 id="{{ strtolower(str_replace(' ', '-', $category->name)) }}" class="text-success fw-bold mb-4">{{ $category->name }}</h2>
+                <div class="row g-4">
+                    @foreach ($category->products as $product)
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="card h-100 bg-black text-white border-success shadow product-card">
+                                <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="height: 200px; object-fit: contain;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <p class="card-text text-success fw-bold">${{ $product->price }}</p>
+                                    <div class="mt-auto">
+                                        @if (in_array($product->id, $cartItems))
+                                            <a href="{{ route('cart.index') }}" class="btn btn-success w-100">Go To Cart</a>
+                                        @else
+                                            <button class="btn btn-success w-100 add-to-cart" data-id="{{ $product->id }}">Add To Cart</button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endforeach
     </div>
-</body>
+</div>
 
+<!-- Optional Alert Message -->
+<div class="container">
+    <div id="login-alert" class="alert alert-danger d-none mt-3">You need to login!</div>
+</div>
+@endsection
+@push('scripts')
 <script>
     $(document).ready(function() {
         // Add to cart functionality
@@ -56,43 +68,23 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    // Show a success message
-                    alert(response.message);
-
-                    // Update the cart count dynamically
-                    let cartCount = $('#cart-count').text();
-                    $('#cart-count').text(parseInt(cartCount) + 1);
-
-                    // Replace the button with "Go To Cart"
-                    const button = $(`button[data-id="${productId}"]`);
-                    button.replaceWith('<a href="{{ route('cart.index') }}" class="btn bg-green-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-green-600">Go To Cart</a>');
+                    location.reload();
                 },
                 error: function(xhr) {
-                    alert('Failed to add the product to the cart.');
+                    $('#login-alert').removeClass('d-none').addClass('opacity-100');
                 }
             });
         });
 
-        // Search functionality
+        // Search functionality (targets .product-card like Tailwind version)
         $('#search-bar').on('input', function() {
             const term = $(this).val().toLowerCase();
-            let visibleCount = 0;
-
-            $('.product-name').each(function() {
-                const isVisible = $(this).text().toLowerCase().includes(term);
-                $(this).closest('.product-card').toggle(isVisible);
-                if (isVisible) visibleCount++;
+            $('.card-title').each(function() {
+                $(this).closest('.product-card').toggle(
+                    $(this).text().toLowerCase().includes(term)
+                );
             });
-
-            // Show "No products found" message if no products match
-            if (visibleCount === 0) {
-                if (!$('.no-results').length) {
-                    $('.products-container').append('<p class="no-results text-center text-red-500 mt-4">No products found</p>');
-                }
-            } else {
-                $('.no-results').remove();
-            }
         });
     });
 </script>
-@endsection
+@endpush

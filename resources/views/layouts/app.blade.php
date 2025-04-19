@@ -15,5 +15,7 @@
     @include('partials.navbar')
 
     @yield('content')
+    @stack('scripts')
+
 </body>
 </html>
