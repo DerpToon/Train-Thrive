@@ -6,12 +6,10 @@
 @section('content')
 <h4>All Reviews</h4>
 
-<!-- Search Bar -->
 <div class="mb-3">
     <input type="text" id="reviewSearchInput" class="form-control" placeholder="Search reviews...">
 </div>
 
-<!-- Review Table -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -39,7 +37,6 @@
     </tbody>
 </table>
 
-<!-- jQuery Script -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
