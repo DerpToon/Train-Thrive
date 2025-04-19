@@ -104,14 +104,17 @@ Route::post('/workoutUpdate', [WorkoutController::class, 'update'])->name('worko
 
 Route::get('/admin/calculator', [CalculatorController::class, 'index'])->name('calculator.index');
 Route::get('/admin/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
-
 Route::delete('/admin/workouts/{id}', [WorkoutController::class, 'destroy'])->name('workouts.destroy');
+
 Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
 Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/admin/users/search', [UserController::class, 'search'])->name('users.search');
 
 Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
 Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
-
+Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
 // Workout Routes
 Route::get('/admin/workouts', [WorkoutController::class, 'index'])->name('workouts.index'); // List all workouts
 Route::get('/admin/workouts/create', [WorkoutController::class, 'create'])->name('workouts.create'); // Show insert form

@@ -7,18 +7,30 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function adminIndex()
+    public function search(Request $request)
     {
-        // Fetch all reviews with the user relationship
-        $reviews = Review::with('user')->get();
+        $query = $request->input('query');
+        $reviews = Review::with('user')
+            ->when($query, function ($queryBuilder, $query) {
+                return $queryBuilder->where('review', 'LIKE', "%{$query}%")
+                    ->orWhereHas('user', function ($userQuery) use ($query) {
+                        $userQuery->where('name', 'LIKE', "%{$query}%");
+                    });
+            })
+            ->get();
 
-        // Return the admin view with the data
-        return view('admin.review.reviewindex', compact('reviews'));
+        return response()->json($reviews);
     }
 
     /**
-     * Delete a review.
+     * Display the review index page.
      */
+    public function adminIndex()
+    {
+        $reviews = Review::with('user')->get();
+        return view('admin.review.reviewindex', compact('reviews'));
+    }
+  
     public function destroy($id)
     {
         $review = Review::findOrFail($id);
