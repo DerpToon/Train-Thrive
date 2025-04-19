@@ -32,7 +32,6 @@
             </div>
         </div>
     </section>
-    
     <section class="exclusive-services container bg-dark text-white rounded p-4 my-5">
         <h2 class="text-center mt-4 mb-4">EXCLUSIVE SERVICES</h2>
         <div class="d-flex justify-content-center gap-4 flex-wrap">
@@ -56,41 +55,51 @@
             </a>
         </div>
     </section>
-
-    <!-- Calorie Calculator Section -->
-    <section class="container bg-dark text-white rounded p-4 my-5">
-        <h2 class="text-center mt-4 mb-4">Calorie Calculator</h2>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <input type="text" id="age" class="form-control" placeholder="Age in Years">
-            </div>
-            <div class="col-md-6">
-                <select id="gender" class="form-control">
-                    <option>Select your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <input type="text" id="height" class="form-control" placeholder="Height in Cms">
-            </div>
-            <div class="col-md-6">
-                <input type="text" id="weight" class="form-control" placeholder="Weight in Kgs">
-            </div>
-            <div class="col-12">
-                <select id="activity" class="form-control">
-                    <option>Select activity level</option>
-                    <option value="sedentary">Sedentary</option>
-                    <option value="light">Lightly active</option>
-                    <option value="moderate">Moderately active</option>
-                    <option value="active">Very active</option>
-                    <option value="very active">Super active</option>
-                </select>
-            </div>
+    
+    <section class="container text-center py-4" id="nutrition-advice-section">
+    <h2 class="fw-bold mt-4 mb-4">NUTRITION ADVICE</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8 bg-dark text-white rounded p-4 shadow-lg">
+            <p class="text-success mb-4">
+                The Calorie Calculator can estimate your daily caloric needs. It's also helpful for setting weight gain/loss goals.
+            </p>
+            <form>
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-black text-white border-success" id="age" placeholder="Age in Years">
+                </div>
+                <div class="mb-3">
+                    <select id="gender" class="form-select bg-black text-white border-success">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-black text-white border-success" id="height" placeholder="Height in Cms">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control bg-black text-white border-success" id="weight" placeholder="Weight in Kgs">
+                </div>
+                <div class="mb-3">
+                    <select id="activity" class="form-select bg-black text-white border-success">
+                        <option value="" disabled selected>Select activity level</option>
+                        <option value="sedentary">Sedentary (little or no exercise)</option>
+                        <option value="light">Lightly active (1-3 days/week)</option>
+                        <option value="moderate">Moderately active (3-5 days/week)</option>
+                        <option value="active">Very active (6-7 days/week)</option>
+                        <option value="very active">Super active (hard exercise & physical job)</option>
+                    </select>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-success w-100" id="calculateButton">CALCULATE</button>
+                </div>
+                <div class="text-center mt-3">
+                    <span id="result" class="text-white fs-5"></span>
+                </div>
+            </form>
         </div>
-        <button class="btn btn-success w-100 mt-3" id="calculateButton">Calculate</button>
-        <p id="result" class="text-center mt-3"></p>
-    </section>
+    </div>
+
 
     <section class="container text-center py-4">
         <h2 class="fw-bold mt-4 mb-4">Customer Reviews</h2>
@@ -105,92 +114,123 @@
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function loadReviews() {
-                $.ajax({
-                    url: "{{ url('/reviews') }}",
-                    method: "GET",
-                    dataType: "json",
-                    success: function (response) {
-                        displayReviews(response.reviews);
-                    },
-                    error: function () {
-                        $("#reviewsContainer").html('<p class="text-white text-center">No reviews available.</p>');
-                    }
-                });
+    <script >
+    $(document).ready(function () {
+    function loadReviews() {
+        $.ajax({
+            url: "{{ url('/reviews') }}",
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                displayReviews(response.reviews);
+            },
+            error: function () {
+                $("#reviewsContainer").html('<p class="text-white text-center">No reviews available.</p>');
             }
-
-            function displayReviews(reviews) {
-                var reviewsContainer = $("#reviewsContainer");
-                reviewsContainer.empty();
-                if (reviews && reviews.length > 0) {
-                    $.each(reviews, function (index, review) {
-                        reviewsContainer.append(`
-                            <div class="card bg-dark text-white shadow-lg border-0 rounded w-75 mx-auto my-3">
-                                <div class="card-body">
-                                    <h5 class="fw-bold">${review.user.name}</h5>
-                                    <p>${review.review}</p>
-                                    <p class="text-muted small">${new Date(review.created_at).toLocaleString()}</p>
-                                </div>
-                            </div>
-                        `);
-                    });
-                } else {
-                    reviewsContainer.html('<p class="text-white text-center">No reviews available.</p>');
-                }
-            }
-
-            loadReviews();
-
-            $("#reviewForm").on("submit", function (e) {
-                e.preventDefault();
-                var reviewText = $.trim($("#reviewText").val());
-                if (!reviewText) return;
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: "POST",
-                    data: { review: reviewText },
-                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: function () {
-                        loadReviews();
-                        $("#reviewForm")[0].reset();
-                    },
-                    error: function () {
-                        console.error("Error posting review.");
-                    }
-                });
-            });
-
-            $("#calculateButton").on("click", function () {
-                let age = parseInt($('#age').val());
-                let gender = $('#gender').val();
-                let height = parseFloat($('#height').val());
-                let weight = parseFloat($('#weight').val());
-                let activity = $('#activity').val();
-                let resultDisplay = $('#result');
-
-                if (isNaN(age) || isNaN(height) || isNaN(weight)) {
-                    resultDisplay.text("Please enter valid numbers for age, height, and weight.");
-                    return;
-                }
-
-                let bmr = gender === "male"
-                    ? 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)
-                    : 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
-
-                let activityMultiplier = {
-                    sedentary: 1.2,
-                    light: 1.375,
-                    moderate: 1.55,
-                    active: 1.725,
-                    "very active": 1.9
-                }[activity] || 1.2;
-
-                resultDisplay.text(`Your estimated daily caloric needs are ${Math.round(bmr * activityMultiplier)} calories.`);
-                $('#age, #gender, #height, #weight, #activity').val('');
-            });
         });
+    }
+
+    function displayReviews(reviews) {
+        var reviewsContainer = $("#reviewsContainer");
+        reviewsContainer.empty();
+        if (reviews && reviews.length > 0) {
+            $.each(reviews, function (index, review) {
+                reviewsContainer.append(`
+                    <div class="card bg-dark text-white shadow-lg border-0 rounded w-75 mx-auto my-3">
+                        <div class="card-body">
+                            <h5 class="fw-bold">${review.user.name}</h5>
+                            <p>${review.review}</p>
+                            <p class="text-muted small">${new Date(review.created_at).toLocaleString()}</p>
+                        </div>
+                    </div>
+                `);
+            });
+        } else {
+            reviewsContainer.html('<p class="text-white text-center">No reviews available.</p>');
+        }
+    }
+
+    loadReviews();
+
+    $("#reviewForm").on("submit", function (e) {
+        e.preventDefault();
+        var reviewText = $.trim($("#reviewText").val());
+        if (!reviewText) return;
+        $.ajax({
+            url: $(this).attr('action'),
+            method: "POST",
+            data: { review: reviewText },
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function () {
+                loadReviews();
+                $("#reviewForm")[0].reset();
+            },
+            error: function () {
+                console.error("Error posting review.");
+            }
+        });
+    });
+
+    $("#calculateButton").on("click", function () {
+        let age = parseInt($('#age').val());
+        let gender = $('#gender').val();
+        let height = parseFloat($('#height').val());
+        let weight = parseFloat($('#weight').val());
+        let activity = $('#activity').val();
+        let resultDisplay = $('#result');
+
+        // Validation
+        if (!gender) {
+            resultDisplay.text("Please select your gender.");
+            return;
+        }
+
+        if (!activity) {
+            resultDisplay.text("Please select your activity level.");
+            return;
+        }
+
+        if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+            resultDisplay.text("Please enter valid numbers for age, height, and weight.");
+            return;
+        }
+
+        if (age <= 0 || age > 120) {
+            resultDisplay.text("Please enter a valid age between 1 and 120.");
+            return;
+        }
+
+        if (height <= 50 || height > 300) {
+            resultDisplay.text("Please enter a valid height between 50cm and 300cm.");
+            return;
+        }
+
+        if (weight <= 10 || weight > 300) {
+            resultDisplay.text("Please enter a valid weight between 10kg and 300kg.");
+            return;
+        }
+
+        let bmr = gender === "male"
+            ? 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)
+            : 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+
+        
+        let activityMultiplier = {
+            sedentary: 1.2,
+            light: 1.375,
+            moderate: 1.55,
+            active: 1.725,
+            "very active": 1.9
+        }[activity];
+
+        let totalCalories = Math.round(bmr * activityMultiplier);
+
+        resultDisplay.text(`Your estimated daily caloric needs are ${totalCalories} calories.`);
+
+        $('#age, #height, #weight').val('');
+        $('#gender, #activity').val('');
+    });
+});
     </script>
 
     @include('partials.footer')
