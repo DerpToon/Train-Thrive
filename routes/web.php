@@ -89,8 +89,12 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 require __DIR__.'/auth.php';
 
 
-Route::post('/cart/add', [CartController::class, 'add'])->middleware('auth');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
 
 
 Route::get('/products', [CategoryController::class, 'index'])->name('products');

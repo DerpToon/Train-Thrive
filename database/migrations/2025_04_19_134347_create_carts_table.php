@@ -12,11 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key to users table
-            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Foreign key to products table
-            $table->integer('quantity')->default(1); // Quantity of the product in the cart
-            $table->timestamps(); // Created at and updated at timestamps
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->integer('quantity')->default(1);
+            $table->timestamps();
+
+            // Foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

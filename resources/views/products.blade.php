@@ -3,8 +3,8 @@
 @section('title', 'Shop')
 
 @section('content')
-<div style="background-image: url('{{ asset('imgs/Products/background1.jpg') }}'); background-size: cover; transition: background-size 0.3s ease-in-out; padding: 20px;">
 <body class="bg-dark text-black">
+<div style="background-image: url({{ asset("imgs/Products/background1.jpg") }}); background-size: cover; transition: background-size 0.3s ease-in-out; padding: 20px;">
 <p id="login-alert" class="text-red-500 text-lg font-bold opacity-0 transition-opacity">You need to login!</p>
  <div class="flex justify-center items-center h-full text-center bg-cover bg-center py-10" >
     <p class="text-4xl text-white font-bold">
@@ -20,8 +20,8 @@
   </div>
   </div>
 
-    <div class="products-container mt-10 px-4 md:px-20" style="text-light-green">
-        @foreach ($categories as $category)
+  <div class="products-container mt-10 px-4 md:px-20">
+            @foreach ($categories as $category)
             <h2 id="{{ strtolower(str_replace(' ', '-', $category->name)) }}" class="text-3xl font-bold text-green-700 mt-10">{{ $category->name }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                 @foreach ($category->products as $product)
@@ -32,14 +32,15 @@
                         @if (in_array($product->id, $cartItems))
                             <a href="{{ route('cart.index') }}" class="btn bg-green-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-green-600">Go To Cart</a>
                         @else
-                            <button class="add-to-cart btn bg-green-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-green-600" data-id="{{ $product->id }}">Add To Cart</button>
+                        <button class="add-to-cart btn bg-green-500 text-white font-bold py-3 px-6 rounded-full mt-4 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105" data-id="{{ $product->id }}">
+                            Add To Cart
+                        </button>
                         @endif
                     </div>
                 @endforeach
             </div>
         @endforeach
     </div>
-</main>
 </body>
 
 <script>
@@ -55,7 +56,19 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    location.reload(); // Reload the page or update the cart dynamically
+                    // Show a success message
+                    alert(response.message);
+
+                    // Update the cart count dynamically
+                    let cartCount = $('#cart-count').text();
+                    $('#cart-count').text(parseInt(cartCount) + 1);
+
+                    // Replace the button with "Go To Cart"
+                    const button = $(`button[data-id="${productId}"]`);
+                    button.replaceWith('<a href="{{ route('cart.index') }}" class="btn bg-green-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-green-600">Go To Cart</a>');
+                },
+                error: function(xhr) {
+                    alert('Failed to add the product to the cart.');
                 }
             });
         });
@@ -63,11 +76,22 @@
         // Search functionality
         $('#search-bar').on('input', function() {
             const term = $(this).val().toLowerCase();
+            let visibleCount = 0;
+
             $('.product-name').each(function() {
-                $(this).closest('.product-card').toggle(
-                    $(this).text().toLowerCase().includes(term)
-                );
+                const isVisible = $(this).text().toLowerCase().includes(term);
+                $(this).closest('.product-card').toggle(isVisible);
+                if (isVisible) visibleCount++;
             });
+
+            // Show "No products found" message if no products match
+            if (visibleCount === 0) {
+                if (!$('.no-results').length) {
+                    $('.products-container').append('<p class="no-results text-center text-red-500 mt-4">No products found</p>');
+                }
+            } else {
+                $('.no-results').remove();
+            }
         });
     });
 </script>

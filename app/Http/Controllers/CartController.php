@@ -3,81 +3,80 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function add(Request $request) {
-        $productId = $request->product_id;
-        $userId = auth()->id();
-    
-        $cartItem = Cart::where('user_id', $userId)
-                        ->where('product_id', $productId)
-                        ->first();
-    
-        if (!$cartItem) {
-            Cart::create([
-                'user_id' => $userId,
-                'product_id' => $productId,
-                'quantity' => 1
-            ]);
-        }
-    
-        return response()->json(['status' => 'added']);
-    }
-    
     public function index()
     {
-        //
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You need to login to view your cart.');
+        }
+
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        return view('cart.index', compact('cartItems'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function add(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        if (!Auth::check()) {
+            return response()->json(['message' => 'You need to login to add items to the cart'], 401);
+        }
+
+        $cartItem = Cart::firstOrCreate(
+            ['user_id' => Auth::id(), 'product_id' => $request->product_id],
+            ['quantity' => 1]
+        );
+
+        if (!$cartItem->wasRecentlyCreated) {
+            $cartItem->increment('quantity');
+        }
+
+        return response()->json(['message' => 'Product added to cart successfully']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        if (!Auth::check()) {
+            return response()->json(['message' => 'You need to login to update the cart'], 401);
+        }
+
+        $cartItem = Cart::where('user_id', Auth::id())
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity = $request->quantity;
+            $cartItem->save();
+        }
+
+        return response()->json(['message' => 'Cart updated successfully']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function remove(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        if (!Auth::check()) {
+            return response()->json(['message' => 'You need to login to remove items from the cart'], 401);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        Cart::where('user_id', Auth::id())
+            ->where('product_id', $request->product_id)
+            ->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json(['message' => 'Product removed from cart']);
     }
 }
