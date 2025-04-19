@@ -20,7 +20,7 @@
   </div>
   </div>
 
-    <div class="products-container mt-10 px-4 md:px-20 style="text-light-green">
+    <div class="products-container mt-10 px-4 md:px-20" style="text-light-green">
         @foreach ($categories as $category)
             <h2 id="{{ strtolower(str_replace(' ', '-', $category->name)) }}" class="text-3xl font-bold text-green-700 mt-10">{{ $category->name }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
