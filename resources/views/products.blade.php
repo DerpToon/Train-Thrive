@@ -3,6 +3,15 @@
 @section('title', 'Shop')
 
 @section('content')
+<head>
+<style>
+    #search-bar::placeholder {
+        color: #adb5bd;
+        opacity: 1;
+    }
+</style>
+
+</head>
 <div class="position-relative" style="background-image: url('{{ asset('imgs/Products/background1.jpg') }}'); background-size: cover; height: 60vh;">
     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0,0,0,0.5);">
         <h1 class="text-white text-center fw-bold display-4">
@@ -19,6 +28,17 @@
                 <input type="text" id="search-bar" class="form-control form-control-lg bg-black text-white border-success" placeholder="Search for products...">
             </div>
         </div>
+
+        <div class="d-flex justify-content-end align-items-center mb-4">
+    <a href="{{ url('/cart') }}" class="btn btn-outline-success position-relative">
+        <i class="fas fa-shopping-cart me-2"></i> View Cart
+        @if(session('cart_count', 0) > 0)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ session('cart_count') }}
+            </span>
+        @endif
+    </a>
+</div>
 
         <!-- Categories and Products -->
         @foreach ($categories as $category)
