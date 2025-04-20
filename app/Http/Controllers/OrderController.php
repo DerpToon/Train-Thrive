@@ -13,6 +13,20 @@ class OrderController extends Controller
         return view('admin.order.order', compact('orders'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Search orders by customer name or email
+        $orders = Order::where('name', 'LIKE', "%{$search}%")
+            ->orWhere('email', 'LIKE', "%{$search}%")
+            ->latest()
+            ->get();
+
+        // Return the filtered orders as JSON
+        return response()->json($orders);
+    }
+
     public function show(Order $order)
     {
         $order->load('items.product'); // Load related order items and products

@@ -47,7 +47,49 @@
     </table>
 </div>
 
-<div class="d-flex justify-content-center">
-    {{ $orders->links() }}
+<div class="d-flex justify-content-between align-items-center mt-3">
+    {{ $orders->links('pagination::bootstrap-4') }}
 </div>
+
+<script>
+    document.getElementById('search-orders').addEventListener('input', function () {
+        const searchValue = this.value;
+
+        fetch(`{{ route('orders.search') }}?search=${searchValue}`)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('orders-table-body');
+                tableBody.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(order => {
+                        const row = `
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.name}</td>
+                                <td>${order.email}</td>
+                                <td>$${parseFloat(order.total).toFixed(2)}</td>
+                                <td>${new Date(order.created_at).toLocaleString()}</td>
+                                <td>
+                                    <a href="/admin/orders/${order.id}" class="btn btn-sm btn-primary">View</a>
+                                    <form action="/admin/orders/${order.id}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="text-center">No orders found.</td>
+                        </tr>
+                    `;
+                }
+            });
+    });
+</script>
 @endsection

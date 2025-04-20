@@ -116,6 +116,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show')->middleware('auth');
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
+    Route::get('/orders/search', [OrderController::class, 'search'])->name('orders.search')->middleware('auth');
+    Route::get('/admin/orders/search', [OrderController::class, 'search'])->name('orders.search')->middleware('auth');
+    
+    Route::post('/admin/workouts', [WorkoutController::class, 'store'])->name('workoutInsert.store');
 });
     
 // Product Routes
