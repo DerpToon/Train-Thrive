@@ -3,17 +3,18 @@
 @section('title', 'Your Cart')
 
 @section('content')
-<div class="container py-5 bg-dark text-white min-vh-100 width-min-100">
-    <h1 class="mb-4 text-success fw-bold">🛒 Your Cart</h1>
+<div class="container-fluid py-5 bg-dark text-white min-vh-100">
+    <h1 class="mb-4 text-success fw-bold text-center">🛒 Your Cart</h1>
 
     @if($cartItems->isEmpty())
-    <p class="text-muted">Your cart is empty. <a href="{{ url('/products') }}" class="text-success">Start shopping</a>!</p>
+    <p class="text-muted text-center">Your cart is empty. <a href="{{ url('/products') }}" class="text-success">Start shopping</a>!</p>
     @else
         <div class="table-responsive">
             <table class="table table-dark table-bordered table-hover align-middle text-center">
                 <thead class="table-success text-dark">
                     <tr>
                         <th>Product</th>
+                        <th>Image</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
@@ -24,6 +25,9 @@
                     @foreach($cartItems as $item)
                         <tr>
                             <td>{{ $item->product->name }}</td>
+                            <td>
+                                <img src="{{ asset($item->product->image) }}" alt="{{ $item->product->name }}" class="img-fluid rounded" style="width: 80px; height: 80px;">
+                            </td>
                             <td>${{ $item->product->price }}</td>
                             <td>
                                 <input type="number" min="1" class="form-control w-auto mx-auto quantity-input bg-dark text-white border-success" data-id="{{ $item->product_id }}" value="{{ $item->quantity }}">
@@ -35,7 +39,7 @@
                         </tr>
                     @endforeach
                     <tr class="table-success text-dark fw-bold">
-                        <td colspan="3" class="text-end">Total:</td>
+                        <td colspan="4" class="text-end">Total:</td>
                         <td>${{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->quantity), 2) }}</td>
                         <td></td>
                     </tr>
@@ -54,7 +58,6 @@
     </div>
 </div>
 
-
 @if(!$cartItems->isEmpty())
     <div class="position-fixed bottom-0 start-0 end-0 bg-success text-white d-flex justify-content-between align-items-center p-3 shadow">
         <span class="fw-bold">Total: ${{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->quantity), 2) }}</span>
@@ -63,12 +66,11 @@
 @endif
 
 <script>
-
     function showToast(message) {
-    $('#cart-toast .toast-body').text(message);
-    const toast = new bootstrap.Toast(document.getElementById('cart-toast'));
-    toast.show();
-}
+        $('#cart-toast .toast-body').text(message);
+        const toast = new bootstrap.Toast(document.getElementById('cart-toast'));
+        toast.show();
+    }
 
     $(document).ready(function() {
         // Update quantity
@@ -87,7 +89,6 @@
                 success: function(response) {
                     showToast(response.message);
                     location.reload();
-
                 },
                 error: function() {
                     showToast("Something went wrong. Please try again.");
@@ -114,12 +115,12 @@
                     $(`button[data-id="${productIdToRemove}"]`).closest('tr').remove();
                     productIdToRemove = null;
                     if ($('tbody tr:has(button.remove-btn)').length === 0) {
-                    window.location.reload();
-            }
-
+                        window.location.reload();
+                    }
                 },
                 error: function() {
-                    showToast(response.message);                }
+                    showToast("Something went wrong. Please try again.");
+                }
             });
         });
     });

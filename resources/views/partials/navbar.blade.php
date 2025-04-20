@@ -2,7 +2,7 @@
     <div class="container d-flex justify-content-between align-items-center">
         <a href="{{ route('home') }}" class="d-flex align-items-center text-decoration-none">
             <img src="{{ asset('imgs/Workouts/Logo.jpg') }}" alt="Logo" class="rounded-circle me-2 shadow-sm" width="60" height="60">
-            <span class="text-success fw-bold fs-4 d-none d-md-inline">Stride Fitness</span>
+            <span class="text-success fw-bold fs-4">Stride Fitness</span>
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -47,7 +47,7 @@
         @auth
         <div class="dropdown">
             <button class="btn btn-success dropdown-toggle px-4 shadow-sm" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                👋 {{ auth()->user()->name }}
+                Hi, {{ auth()->user()->name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
