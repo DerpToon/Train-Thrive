@@ -18,19 +18,19 @@
         <div class="row row-cols-2 row-cols-md-4 g-4">
             <div class="col">
                 <img src="{{ asset('imgs/Home page/powder.png') }}" class="img-fluid">
-                <a href="{{ route('products.index', ['#protein-powders']) }}" class="btn btn-success w-100 mt-2">POWDERS</a>
+                <a href="{{ route('products.move', ['#protein-powders']) }}" class="btn btn-success w-100 mt-2">POWDERS</a>
             </div>
             <div class="col">
                 <img src="{{ asset('imgs/Home page/mass-gainer.png') }}" class="img-fluid">
-                <a href="{{ route('products.index', ['#mass-gainer']) }}" class="btn btn-success w-100 mt-2">MASS GAINERS</a>
+                <a href="{{ route('products.move', ['#mass-gainer']) }}" class="btn btn-success w-100 mt-2">MASS GAINERS</a>
             </div>
             <div class="col">
                 <img src="{{ asset('imgs/Home page/Energyflavors.png') }}" class="img-fluid">
-                <a href="{{ route('products.index', ['#energy-flavors']) }}" class="btn btn-success w-100 mt-2">ENERGY FLAVORS</a>
+                <a href="{{ route('products.move', ['#energy-flavors']) }}" class="btn btn-success w-100 mt-2">ENERGY FLAVORS</a>
             </div>
             <div class="col">
                 <img src="{{ asset('imgs/Home page/flakes.png') }}" class="img-fluid">
-                <a href="{{ route('products.index', ['#flakes']) }}" class="btn btn-success w-100 mt-2">FLAKES</a>
+                <a href="{{ route('products.move', ['#flakes']) }}" class="btn btn-success w-100 mt-2">FLAKES</a>
             </div>
         </div>
     </section>
@@ -81,36 +81,39 @@
         </div>
     </section>
 
-    <!-- Exclusive Services Section -->
+   
     <section class="exclusive-services container bg-dark text-white rounded p-5 my-5 shadow">
-        <h2 class="text-center mb-5 display-5 fw-bold">Exclusive Services</h2>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <a href="{{ url('About-Us.html') }}" class="text-decoration-none">
-                    <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
-                        <img src="{{ asset('imgs/Home page/Loyalty.png') }}" alt="Loyalty Program icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
-                        <h4 class="fw-semibold">Loyalty Program</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ url('Workouts.html') }}" class="text-decoration-none">
-                    <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
-                        <img src="{{ asset('imgs/Home page/Plan.png') }}" alt="Workout Plans icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
-                        <h4 class="fw-semibold">Workout Plans</h4>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#nutrition-advice-section" class="text-decoration-none">
-                    <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
-                        <img src="{{ asset('imgs/Home page/Nutrition.png') }}" alt="Nutrition Advice icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
-                        <h4 class="fw-semibold">Nutrition Advice</h4>
-                    </div>
-                </a>
-            </div>
+    <h2 class="text-center mb-5 display-5 fw-bold">Exclusive Services</h2>
+    <div class="row g-4 justify-content-center">
+        <!-- Loyalty Program -->
+        <div class="col-md-4">
+            <a href="{{ route('about') }}" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Loyalty.png') }}" alt="Loyalty Program icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Loyalty Program</h4>
+                </div>
+            </a>
         </div>
-    </section>
+        <!-- Workout Plans -->
+        <div class="col-md-4">
+            <a href="{{ route('workouts') }}" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Plan.png') }}" alt="Workout Plans icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Workout Plans</h4>
+                </div>
+            </a>
+        </div>
+        <!-- Nutrition Advice -->
+        <div class="col-md-4">
+            <a href="{{ route('calculator') }}" class="text-decoration-none">
+                <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
+                    <img src="{{ asset('imgs/Home page/Nutrition.png') }}" alt="Nutrition Advice icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                    <h4 class="fw-semibold">Nutrition Advice</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Customer Reviews Section -->
     <section class="container text-center py-4">

@@ -120,7 +120,7 @@ Route::post('/admin/products', [ProductController::class, 'store'])->name('produ
 Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
+Route::get('/products/move', [ProductController::class, 'move'])->name('products.move');
    
 
 require __DIR__.'/auth.php';
