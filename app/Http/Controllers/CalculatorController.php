@@ -26,13 +26,16 @@ class CalculatorController extends Controller
         return response()->json($calculators);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch all calculator data
-        $calculators = Calculator::all();
+        // Get the number of items per page from the request or default to 10
+        $itemsPerPage = $request->get('itemsPerPage', 10);
 
-        // Return the view with the data
-        return view('admin.calculator.calculatorindex', compact('calculators'));
+        // Fetch paginated calculators
+        $calculators = Calculator::paginate($itemsPerPage);
+
+        // Pass the paginated calculators and itemsPerPage to the view
+        return view('admin.calculator.calculatorindex', compact('calculators', 'itemsPerPage'));
     }
 
     /**

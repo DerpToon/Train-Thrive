@@ -34,12 +34,25 @@ class WorkoutController extends Controller
         return view('admin.workout.workoutInsert');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $workouts = Workout::all();
+        // Get the number of items per page from the request or default to 10
+        $itemsPerPage = $request->get('itemsPerPage', 10);
+
+        // Fetch distinct muscle groups for the filter
         $muscleGroups = Workout::select('muscle_group')->distinct()->pluck('muscle_group');
 
-        return view('admin.workout.workoutindex', compact('workouts', 'muscleGroups'));
+        // Apply filtering if a muscle group is selected
+        $query = Workout::query();
+        if ($request->has('muscleGroup') && !empty($request->muscleGroup)) {
+            $query->where('muscle_group', $request->muscleGroup);
+        }
+
+        // Fetch workouts with pagination or all filtered workouts
+        $workouts = $query->paginate($itemsPerPage);
+
+        // Pass the paginated workouts and muscle groups to the view
+        return view('admin.workout.workoutindex', compact('workouts', 'muscleGroups', 'itemsPerPage'));
     }
 
     /**
@@ -113,5 +126,21 @@ class WorkoutController extends Controller
         $workout->delete();
     
         return redirect()->route('workouts.index')->with('success', 'Workout deleted successfully!');
+    }
+
+    public function getFilteredWorkouts(Request $request)
+    {
+        $query = Workout::query();
+
+        // Apply filtering based on muscle group
+        if ($request->has('muscleGroup') && !empty($request->muscleGroup)) {
+            $query->where('muscle_group', $request->muscleGroup);
+        }
+
+        // Fetch all filtered workouts
+        $workouts = $query->get();
+
+        // Return the filtered workouts as JSON
+        return response()->json(['workouts' => $workouts], 200);
     }
 }
