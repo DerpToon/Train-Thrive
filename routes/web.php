@@ -104,6 +104,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
     Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
+});
     
 // Product Routes
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
