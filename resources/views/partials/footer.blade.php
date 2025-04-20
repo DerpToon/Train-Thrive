@@ -9,9 +9,10 @@
 
         <div class="row justify-content-center mb-3">
             <div class="col-auto d-flex flex-wrap gap-3">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Contact Us</a>
+                <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
+                <a href="/terms-of-service" class="footer-link">Terms of Service</a>
+                <a href="/contact-us" class="footer-link">Contact Us</a>
+                <a href="/about-us" class="footer-link">About Us</a>
             </div>
         </div>
 
@@ -19,40 +20,24 @@
             <div class="col-auto">
                 <ul class="list-unstyled d-flex justify-content-center mb-0 gap-3">
                     <li>
-                        <a href="#" class="footer-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.facebook.com" target="_blank" class="footer-icon"><i class="fab fa-facebook-f"></i></a>
                     </li>
                     <li>
-                        <a href="#" class="footer-icon"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="footer-icon"><i class="fab fa-twitter"></i></a>
                     </li>
                     <li>
-                        <a href="#" class="footer-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com" target="_blank" class="footer-icon"><i class="fab fa-instagram"></i></a>
                     </li>
                     <li>
-                        <a href="#" class="footer-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.youtube.com" target="_blank" class="footer-icon"><i class="fab fa-youtube"></i></a>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- New Icon Buttons -->
-        <div class="row justify-content-center mt-4">
-            <div class="col-auto d-flex gap-3">
-                <a href="#" class="social-btn facebook-btn" title="Facebook">
-                    <img src="/imgs/Workouts/facebook.png" alt="Facebook" />
-                </a>
-                <a href="#" class="social-btn instagram-btn" title="Instagram">
-                    <img src="/imgs/Workouts/instagram.png" alt="Instagram" />
-                </a>
-                <a href="#" class="social-btn whatsapp-btn" title="WhatsApp">
-                    <img src="/imgs/Workouts/whatsapp.png" alt="WhatsApp" />
-                </a>
-            </div>
-        </div>
-
-        <p class="mb-0 mt-4 small text-muted">&copy; 2025 Stride Fitness. All Rights Reserved.</p>
+        <p class="mb-0 mt-4 small text-white">&copy; {{ date('Y') }} Stride Fitness. All Rights Reserved.</p>
     </div>
 
-    <!-- Optional glow effect background -->
     <div class="footer-glow position-absolute top-50 start-50 translate-middle opacity-25"></div>
 </footer>
 
@@ -85,37 +70,5 @@
         background: radial-gradient(circle, rgba(40, 167, 69, 0.3), transparent 70%);
         border-radius: 50%;
         pointer-events: none;
-        z-index: 0;
-    }
-
-    .social-btn {
-        width: 50px;
-        height: 50px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        overflow: hidden;
-        background-color: #222;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .social-btn img {
-        width: 60%;
-        height: 60%;
-        object-fit: contain;
-        transition: filter 0.3s ease;
-    }
-
-    .social-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 20px rgba(40, 167, 69, 0.6);
-    }
-
-    .facebook-btn:hover img,
-    .instagram-btn:hover img,
-    .whatsapp-btn:hover img {
-        filter: none;
     }
 </style>
