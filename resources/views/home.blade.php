@@ -406,10 +406,9 @@
             flex-direction: column;
         }
 
-        /* Make placeholder text white */
         ::placeholder {
             color: white !important;
-            opacity: 1; /* Ensure full opacity */
+            opacity: 1; 
         }
     </style>
 
