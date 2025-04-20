@@ -97,7 +97,6 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 
 
 
-Route::get('/products', [CategoryController::class, 'index'])->name('products');
 
 
 Route::post('/calculatorInsert', [CalculatorController::class, 'store'])->name('calculatorInsert.store');
@@ -135,3 +134,9 @@ Route::get('/admin/calculators/{id}/edit', [CalculatorController::class, 'edit']
 Route::put('/admin/calculators/{id}', [CalculatorController::class, 'update'])->name('calculator.update'); // Update calculator
 Route::delete('/admin/calculators/{id}', [CalculatorController::class, 'destroy'])->name('calculator.destroy'); // Delete calculator
 Route::get('/admin/calculators/search', [CalculatorController::class, 'search'])->name('calculator.search');
+
+// Route for CategoryController
+Route::get('/products', [CategoryController::class, 'index'])->name('products');
+
+// Route for ProductController
+Route::get('/products-list', [ProductController::class, 'index'])->name('products.index');

@@ -19,6 +19,6 @@ class ProductController extends Controller
             : [];
 
         // Return the view with categories and cart items
-        return view('products.index', compact('categories', 'cartItems'));
+        return view('products', compact('categories', 'cartItems'));
     }
 }
