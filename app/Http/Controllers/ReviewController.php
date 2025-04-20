@@ -13,10 +13,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        // Fetch all reviews with their associated users
         $reviews = Review::with('user')->get();
-
-        // Separate the newest review (most recent)
         $newestReview = $reviews->sortByDesc('created_at')->first();
 
         // Filter out the newest review from the collection
