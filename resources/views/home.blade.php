@@ -96,7 +96,7 @@
             <div class="col-md-4">
                 <a href="{{ url('Workouts.html') }}" class="text-decoration-none">
                     <div class="service-card bg-success text-white text-center rounded-4 p-4 h-100 transition-hover shadow-sm">
-                        <img src="{{ asset('imgs/Home page/Plans.png') }}" alt="Workout Plans icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('imgs/Home page/Plan.png') }}" alt="Workout Plans icon" class="img-fluid mb-3" style="width: 100px; height: 100px;">
                         <h4 class="fw-semibold">Workout Plans</h4>
                     </div>
                 </a>
