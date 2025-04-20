@@ -68,7 +68,17 @@
             </div>
         </div>
 
-        
+        <!-- Orders Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="bi bi-receipt display-4 text-secondary"></i>
+                    <h4 class="mt-3">Orders</h4>
+                    <p class="text-muted">View and manage customer orders.</p>
+                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Manage Orders</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

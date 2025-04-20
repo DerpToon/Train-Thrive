@@ -11,6 +11,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 
 // Public Routes
 Route::get('/', fn() => view('home'))->name('home');
@@ -18,6 +20,11 @@ Route::get('/about-us', fn() => view('about-us'))->name('about');
 Route::get('/shop', fn() => view('products'))->name('shop');
 Route::get('/products-list', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products', [CategoryController::class, 'index'])->name('products');
+
+// Route to display the Thank You page
+Route::get('/thank-you', function () {
+    return view('thank-you');
+})->name('thank-you');
 
 // Authentication Routes
 Route::get('/login', fn() => view('auth.login'))->name('login');
@@ -104,6 +111,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
     Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
+
+    // Admin Orders
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show')->middleware('auth');
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
 });
     
 // Product Routes
@@ -114,6 +126,9 @@ Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->nam
 Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/products/move', [ProductController::class, 'move'])->name('products.move');
-   
+
+// Checkout Routes
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
+Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
 
 require __DIR__.'/auth.php';

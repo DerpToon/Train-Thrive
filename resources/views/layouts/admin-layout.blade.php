@@ -79,6 +79,11 @@
                                 <i class="bi bi-box"></i> Products
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {{ request()->routeIs('orders.index') ? 'active' : '' }}" href="{{ route('orders.index') }}">
+                                <i class="bi bi-receipt"></i> Orders
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="mt-auto">
