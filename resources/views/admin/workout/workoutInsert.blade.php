@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.admin-layout')
 
 
 @section('title', 'Add New Workout')

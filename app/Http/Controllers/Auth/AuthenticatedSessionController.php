@@ -37,20 +37,17 @@ class AuthenticatedSessionController extends Controller
             $user = Auth::user();
     
             if ($user->privilege === 'admin') {
-                return redirect()->route('home'); 
+                return redirect()->route('admin'); // Redirect to the admin dashboard
             }
     
-            return redirect()->route('home'); 
+            return redirect()->route('home'); // Redirect to the home page for regular users
         }
     
         return back()->withErrors([
             'login' => __('The provided credentials do not match our records.'),
         ]);
     }
-    
-    
-    
-    
+
     /**
      * Destroy an authenticated session.
      */

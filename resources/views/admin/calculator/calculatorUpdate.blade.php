@@ -1,5 +1,4 @@
-{{-- filepath: c:\xampp\htdocs\Train-Thrive\resources\views\admin\calculatorUpdate.blade.php --}}
-@extends('layouts.app')
+@extends('layouts.admin-layout')
 
 @section('title', 'Update Calculator')
 

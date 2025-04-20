@@ -77,8 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 });
 
-// Admin Routes
-Route::middleware(['auth', 'admin'])->group(function () {
+
     // Admin Dashboard
     Route::get('/admin', function () {
         return view('admin');
@@ -112,4 +111,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
     Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
-});
+    
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+   
+
+require __DIR__.'/auth.php';
