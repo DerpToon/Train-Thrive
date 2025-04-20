@@ -101,21 +101,18 @@ Route::prefix('admin')->group(function () {
     });
 
     // Admin Reviews
-    Route::prefix('reviews')->group(function () {
-        Route::get('/', [ReviewController::class, 'adminIndex'])->name('reviews.index');
-        Route::delete('/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
-        Route::get('/search', [ReviewController::class, 'search'])->name('reviews.search');
-    });
-
-    // Admin Products
-    Route::prefix('products')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('products.index');
-        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
-        Route::post('/', [ProductController::class, 'store'])->name('products.store');
-        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-        Route::put('/{product}', [ProductController::class, 'update'])->name('products.update');
-        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-    });
-});
+    Route::get('/admin/reviews', [ReviewController::class, 'adminIndex'])->name('reviews.index');
+    Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+    Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
+    
+// Product Routes
+Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::get('/products/move', [ProductController::class, 'move'])->name('products.move');
+   
 
 require __DIR__.'/auth.php';

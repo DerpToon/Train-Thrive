@@ -18,6 +18,13 @@ class ProductController extends Controller
         $products = Product::with('category')->paginate($perPage);
         return view('admin.product.productindex', compact('products'));
     }
+    public function move()
+    {
+        $categories = Category::with('products')->get();
+        $cartItems = Auth::check() ? Cart::where('user_id', Auth::id())->pluck('product_id')->toArray() : [];
+        return view('products', compact('categories', 'cartItems'));
+    }
+
 
     /**
      * Show the form for creating a new product.
