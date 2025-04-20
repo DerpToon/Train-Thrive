@@ -64,7 +64,7 @@
         <a href="{{ url('/checkout') }}" class="btn btn-dark">Proceed to Checkout</a>
     </div>
 @endif
-
+@include('partials.footer')
 <script>
     function showToast(message) {
         $('#cart-toast .toast-body').text(message);
