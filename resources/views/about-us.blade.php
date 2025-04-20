@@ -40,15 +40,6 @@
         </div>
     </section>
 
-    <section class="container text-center py-4">
-        <h2 class="fw-bold text-success">Follow Us</h2>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="https://www.facebook.com/trainandthrive" target="_blank" class="btn btn-outline-light"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/trainandthrive" target="_blank" class="btn btn-outline-light"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/81932062" target="_blank" class="btn btn-outline-light"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </section>
-
     @include('partials.footer')
 </body>
 @endsection
