@@ -46,19 +46,20 @@
 
         @auth
         <div class="dropdown">
-            <button class="btn btn-success dropdown-toggle px-4 shadow-sm" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                Hi, {{ auth()->user()->name }}
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="dropdown-item text-danger">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
+    <button class="btn btn-success dropdown-toggle px-4 shadow-sm d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown">
+        <img src="{{ asset(auth()->user()->profile_photo ?? 'imgs/default-avatar.jpg') }}" alt="Profile Picture" class="rounded-circle me-2" width="30" height="30">
+        Hi, {{ auth()->user()->name }}
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Profile</a></li>
+        <li>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item text-danger">Logout</button>
+            </form>
+        </li>
+    </ul>
+</div>
         @else
         <a href="{{ route('login') }}" class="btn btn-outline-success px-4 shadow-sm">Login</a>
         @endauth
@@ -94,3 +95,11 @@
         min-width: 180px;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdowns = document.querySelectorAll('.dropdown-toggle');
+        dropdowns.forEach(function (dropdown) {
+            new bootstrap.Dropdown(dropdown);
+        });
+    });
+</script>
