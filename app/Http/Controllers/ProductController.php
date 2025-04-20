@@ -52,9 +52,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified product.
      */
+    
     public function edit($id)
     {
-        $product = Product::findOrFail($id); // Fetch the product by id or throw a 404 error
+        $product = Product::findOrFail($id); // Fetch the product by ID or throw a 404 error
         $categories = Category::all();
         return view('admin.product.productUpdate', compact('product', 'categories'));
     }
