@@ -50,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/calculatorUpdate', [CalculatorController::class, 'update'])->name('calculatorUpdate.store');
 
     // Reviews
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-    Route::get('/reviews', [ReviewApiController::class, 'index']);
 
     // Cart
     Route::prefix('cart')->group(function () {
