@@ -109,7 +109,7 @@ class CalculatorController extends Controller
         $calculator = Calculator::findOrFail($id);
         $calculator->delete();
 
-        return redirect()->route('admin')->with('success', 'Calculator deleted successfully!');
+        return redirect()->route('calculator.index')->with('success', 'Calculator deleted successfully!');
     }
     public function create()
     {

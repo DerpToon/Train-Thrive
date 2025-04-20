@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 
+
 // Public Routes
 Route::get('/', function () {
     return view('home');
@@ -113,12 +114,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/admin/reviews/search', [ReviewController::class, 'search'])->name('reviews.search');
     
-    Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+// Product Routes
+Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
-Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
    
 
