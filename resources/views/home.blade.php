@@ -145,67 +145,6 @@
     <script>
         // JavaScript for Reviews and Calorie Calculator
         $(document).ready(function () {
-            // Load Reviews
-            function loadReviews() {
-                $.ajax({
-                    url: "{{ url('/reviews') }}",
-                    method: "GET",
-                    dataType: "json",
-                    success: function (response) {
-                        displayReviews(response.reviews);
-                    },
-                    error: function () {
-                        $("#reviewsContainer").html('<p class="text-white text-center">No reviews available.</p>');
-                    }
-                });
-            }
-
-            function displayReviews(reviews) {
-                var reviewsContainer = $("#reviewsContainer");
-                reviewsContainer.empty();
-                if (reviews && reviews.length > 0) {
-                    reviewsContainer.append('<div class="row row-cols-1 row-cols-md-3 g-4"></div>');
-                    var row = reviewsContainer.find(".row");
-                    $.each(reviews, function (index, review) {
-                        row.append(`
-                            <div class="col">
-                                <div class="card bg-dark text-white shadow-lg border-0 rounded h-100">
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="fw-bold">${review.user.name}</h5>
-                                        <p>${review.review}</p>
-                                        <p class="text-muted small mt-auto">${new Date(review.created_at).toLocaleString()}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-                } else {
-                    reviewsContainer.html('<p class="text-white text-center">No reviews available.</p>');
-                }
-            }
-
-            loadReviews();
-
-            // Submit Review
-            $("#reviewForm").on("submit", function (e) {
-                e.preventDefault();
-                var reviewText = $.trim($("#reviewText").val());
-                if (!reviewText) return;
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: "POST",
-                    data: { review: reviewText },
-                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: function () {
-                        loadReviews();
-                        $("#reviewForm")[0].reset();
-                    },
-                    error: function () {
-                        console.error("Error posting review.");
-                    }
-                });
-            });
-
             // Calorie Calculator
             $("#calculateButton").on("click", function () {
                 let age = parseInt($('#age').val());
@@ -266,6 +205,8 @@
                 $('#gender, #activity').val('');
             });
         });
+
+        
 
         document.addEventListener("DOMContentLoaded", function () {
             const reviewModal = document.getElementById("reviewModal");
