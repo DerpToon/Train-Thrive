@@ -36,8 +36,14 @@ class CartController extends Controller
         if (!$cartItem->wasRecentlyCreated) {
             $cartItem->increment('quantity');
         }
+        $cartCount = Cart::where('user_id', Auth::id())->sum('quantity');
+        session(['cart_count' => $cartCount]);
 
-        return response()->json(['message' => 'Product added to cart successfully']);
+
+        return response()->json([
+            'message' => 'Product added to cart successfully'
+            , 'cart_count' => $cartCount]);
+
     }
 
     public function update(Request $request)
@@ -50,17 +56,25 @@ class CartController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'You need to login to update the cart'], 401);
         }
+    
+        $cartItem = Cart::where('user_id', auth()->id())
+                        ->where('product_id', $request->product_id)
+                        ->firstOrFail();
+    
+        $cartItem->update(['quantity' => $request->quantity]);
+    
+        $itemTotal = $cartItem->product->price * $cartItem->quantity;
+        $cartTotal = Cart::where('user_id', auth()->id())
+                         ->get()
+                         ->sum(fn($item) => $item->product->price * $item->quantity);
+    
+        return response()->json([
+            'message' => 'Cart updated successfully!',
+            'item_total' => $itemTotal,
+            'cart_total' => $cartTotal
+        ]);
 
-        $cartItem = Cart::where('user_id', Auth::id())
-            ->where('product_id', $request->product_id)
-            ->first();
 
-        if ($cartItem) {
-            $cartItem->quantity = $request->quantity;
-            $cartItem->save();
-        }
-
-        return response()->json(['message' => 'Cart updated successfully']);
     }
 
     public function remove(Request $request)

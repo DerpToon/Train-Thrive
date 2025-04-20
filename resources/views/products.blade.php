@@ -32,11 +32,9 @@
         <div class="d-flex justify-content-end align-items-center mb-4">
     <a href="{{ url('/cart') }}" class="btn btn-outline-success position-relative">
         <i class="fas fa-shopping-cart me-2"></i> View Cart
-        @if(session('cart_count', 0) > 0)
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ session('cart_count') }}
-            </span>
-        @endif
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+             {{ session('cart_count', 0) }}
+          </span>
     </a>
 </div>
 
@@ -54,9 +52,9 @@
                                     <p class="card-text text-success fw-bold">${{ $product->price }}</p>
                                     <div class="mt-auto">
                                         @if (in_array($product->id, $cartItems))
-                                            <a href="{{ route('cart.index') }}" class="btn btn-success w-100">Go To Cart</a>
+                                            <a href="{{ route('cart') }}" class="btn btn-success w-100">Go To Cart</a>
                                         @else
-                                            <button class="btn btn-success w-100 add-to-cart" data-id="{{ $product->id }}">Add To Cart</button>
+                                            <button class="btn btn-success w-100 add-to-cart" data-id="{{ $product->id }}"><i class="fas fa-cart-plus"></i>Add To Cart</button>
                                         @endif
                                     </div>
                                 </div>
@@ -73,9 +71,25 @@
 <div class="container">
     <div id="login-alert" class="alert alert-danger d-none mt-3">You need to login!</div>
 </div>
+<div id="customMessage"
+     class="position-fixed bottom-0 end-0 m-4 bg-dark text-success border border-success rounded px-4 py-3 shadow"
+     style="display: none; z-index: 1051;">
+</div>
+
 @endsection
 @push('scripts')
 <script>
+    function showCustomMessage(message, isError = false) {
+    const msgBox = $('#customMessage');
+    msgBox.text(message);
+    msgBox
+        .removeClass('text-success border-success text-danger border-danger')
+        .addClass(isError ? 'text-danger border-danger' : 'text-success border-success');
+
+    msgBox.fadeIn();
+    setTimeout(() => msgBox.fadeOut(), 2000);
+}
+
     $(document).ready(function() {
         // Add to cart functionality
         $('.add-to-cart').click(function() {
@@ -88,7 +102,9 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    location.reload();
+                    $('#cart-count').text(response.cart_count);
+                    showCustomMessage(response.message);
+                    
                 },
                 error: function(xhr) {
                     $('#login-alert').removeClass('d-none').addClass('opacity-100');
@@ -96,7 +112,11 @@
             });
         });
 
-        // Search functionality (targets .product-card like Tailwind version)
+        $('.add-to-cart').prop('disabled', true);
+        setTimeout(() => $('.add-to-cart').prop('disabled', false), 1000);
+
+
+        // Search functionality 
         $('#search-bar').on('input', function() {
             const term = $(this).val().toLowerCase();
             $('.card-title').each(function() {

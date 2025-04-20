@@ -3,11 +3,11 @@
 @section('title', 'Your Cart')
 
 @section('content')
-<div class="container py-5 bg-dark text-white min-vh-100">
+<div class="container py-5 bg-dark text-white min-vh-100 width-min-100">
     <h1 class="mb-4 text-success fw-bold">🛒 Your Cart</h1>
 
     @if($cartItems->isEmpty())
-        <p class="text-muted">Your cart is empty.</p>
+    <p class="text-muted">Your cart is empty. <a href="{{ url('/products') }}" class="text-success">Start shopping</a>!</p>
     @else
         <div class="table-responsive">
             <table class="table table-dark table-bordered table-hover align-middle text-center">
@@ -45,7 +45,31 @@
     @endif
 </div>
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+    <div id="cart-toast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+
+@if(!$cartItems->isEmpty())
+    <div class="position-fixed bottom-0 start-0 end-0 bg-success text-white d-flex justify-content-between align-items-center p-3 shadow">
+        <span class="fw-bold">Total: ${{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->quantity), 2) }}</span>
+        <a href="{{ url('/checkout') }}" class="btn btn-dark">Proceed to Checkout</a>
+    </div>
+@endif
+
 <script>
+
+    function showToast(message) {
+    $('#cart-toast .toast-body').text(message);
+    const toast = new bootstrap.Toast(document.getElementById('cart-toast'));
+    toast.show();
+}
+
     $(document).ready(function() {
         // Update quantity
         $('.quantity-input').change(function() {
@@ -61,18 +85,21 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    showToast(response.message);
                     location.reload();
+
                 },
                 error: function() {
-                    alert('Failed to update the cart.');
-                }
+                    showToast("Something went wrong. Please try again.");
+                },
             });
         });
 
         // Remove item
-        $('.remove-btn').click(function() {
-            if (!confirm('Are you sure you want to remove this item?')) return;
+        let productIdToRemove = null;
 
+        $('.remove-btn').click(function() {
+            productIdToRemove = $(this).data('id');
             const productId = $(this).data('id');
 
             $.ajax({
@@ -83,12 +110,16 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    alert(response.message);
-                    location.reload();
+                    showToast(response.message);
+                    $(`button[data-id="${productIdToRemove}"]`).closest('tr').remove();
+                    productIdToRemove = null;
+                    if ($('tbody tr:has(button.remove-btn)').length === 0) {
+                    window.location.reload();
+            }
+
                 },
                 error: function() {
-                    alert('Failed to remove the product from the cart.');
-                }
+                    showToast(response.message);                }
             });
         });
     });
