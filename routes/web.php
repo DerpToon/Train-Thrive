@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/workouts/{id}/edit', [WorkoutController::class, 'edit'])->name('workouts.edit');
     Route::put('/admin/workouts/{id}', [WorkoutController::class, 'update'])->name('workouts.update');
     Route::delete('/admin/workouts/{id}', [WorkoutController::class, 'destroy'])->name('workouts.destroy');
+    Route::get('admin/workouts/filter', [WorkoutController::class, 'getFilteredWorkouts'])->name('admin.workouts.filter');
 
     // Admin Calculators
     Route::get('/admin/calculators', [CalculatorController::class, 'index'])->name('calculator.index');
