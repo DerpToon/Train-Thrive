@@ -120,9 +120,9 @@
         <h2 class="fw-bold mt-4 mb-4">Customer Reviews</h2>
         <div id="reviewsContainer"></div>
         @auth
-            <!-- Button to Open Modal -->
-            <button id="openReviewModal" class="btn btn-success mt-3">Add Your Review</button>
-        @endauth
+    <button id="openReviewModal" class="btn btn-success mt-3">Add Your Review</button>
+@endauth
+
     </section>
 
     <!-- Review Modal -->
@@ -209,89 +209,99 @@
         
 
         document.addEventListener("DOMContentLoaded", function () {
-            const reviewModal = document.getElementById("reviewModal");
-            const openModalButton = document.getElementById("openReviewModal");
-            const closeModalButton = document.getElementById("closeModal");
+    const reviewModal = document.getElementById("reviewModal");
+    const openModalButton = document.getElementById("openReviewModal");
+    const closeModalButton = document.getElementById("closeModal");
+    const reviewForm = document.getElementById("reviewForm");
 
-            // Open Modal
-            openModalButton.addEventListener("click", function () {
-                reviewModal.classList.remove("d-none");
-            });
-
-            // Close Modal
-            closeModalButton.addEventListener("click", function () {
-                reviewModal.classList.add("d-none");
-            });
-
-            // Close Modal on Outside Click
-            window.addEventListener("click", function (event) {
-                if (event.target === reviewModal) {
-                    reviewModal.classList.add("d-none");
-                }
-            });
-
-            // Submit Review
-            $("#reviewForm").on("submit", function (e) {
-                e.preventDefault();
-                var reviewText = $.trim($("#reviewText").val());
-                if (!reviewText) return;
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: "POST",
-                    data: { review: reviewText },
-                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    success: function () {
-                        loadReviews();
-                        $("#reviewForm")[0].reset();
-                        reviewModal.classList.add("d-none");
-                    },
-                    error: function () {
-                        console.error("Error posting review.");
-                    }
-                });
-            });
-
-            // Load Reviews
-            function loadReviews() {
-                $.ajax({
-                    url: "{{ url('/reviews') }}",
-                    method: "GET",
-                    dataType: "json",
-                    success: function (response) {
-                        displayReviews(response.reviews);
-                    },
-                    error: function () {
-                        $("#reviewsContainer").html('<p class="text-white text-center">No reviews available.</p>');
-                    }
-                });
-            }
-
-            function displayReviews(reviews) {
-                var reviewsContainer = $("#reviewsContainer");
-                reviewsContainer.empty();
-                if (reviews && reviews.length > 0) {
-                    reviewsContainer.append('<div class="row row-cols-1 row-cols-md-3 g-4"></div>');
-                    var row = reviewsContainer.find(".row");
-                    $.each(reviews, function (index, review) {
-                        row.append(`
-                            <div class="col">
-                                <div class="card bg-dark text-white shadow-lg border-0 rounded h-100">
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="fw-bold">${review.user.name}</h5>
-                                        <p>${review.review}</p>
-                                        <p class="text-muted small mt-auto">${new Date(review.created_at).toLocaleString()}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-                } else {
-                    reviewsContainer.html('<p class="text-white text-center">No reviews available.</p>');
-                }
-            }
-
-            loadReviews();
+    // Open Modal (only if button exists)
+    if (openModalButton && reviewModal) {
+        openModalButton.addEventListener("click", function () {
+            reviewModal.classList.remove("d-none");
         });
+    }
+
+    // Close Modal (only if button exists)
+    if (closeModalButton && reviewModal) {
+        closeModalButton.addEventListener("click", function () {
+            reviewModal.classList.add("d-none");
+        });
+    }
+
+    // Close Modal on Outside Click
+    if (reviewModal) {
+        window.addEventListener("click", function (event) {
+            if (event.target === reviewModal) {
+                reviewModal.classList.add("d-none");
+            }
+        });
+    }
+
+    // Submit Review (if form exists)
+    if (reviewForm) {
+        $("#reviewForm").on("submit", function (e) {
+            e.preventDefault();
+            var reviewText = $.trim($("#reviewText").val());
+            if (!reviewText) return;
+            $.ajax({
+                url: $(this).attr('action'),
+                method: "POST",
+                data: { review: reviewText },
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function () {
+                    loadReviews();
+                    $("#reviewForm")[0].reset();
+                    reviewModal.classList.add("d-none");
+                },
+                error: function () {
+                    console.error("Error posting review.");
+                }
+            });
+        });
+    }
+
+    // Load Reviews
+    function loadReviews() {
+        $.ajax({
+            url: "{{ url('/reviews') }}",
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                displayReviews(response.reviews);
+            },
+            error: function () {
+                $("#reviewsContainer").html('<p class="text-white text-center">No reviews available.</p>');
+            }
+        });
+    }
+
+    function displayReviews(reviews) {
+        var reviewsContainer = $("#reviewsContainer");
+        reviewsContainer.empty();
+        if (reviews && reviews.length > 0) {
+            reviewsContainer.append('<div class="row row-cols-1 row-cols-md-3 g-4"></div>');
+            var row = reviewsContainer.find(".row");
+            $.each(reviews, function (index, review) {
+                row.append(`
+                    <div class="col">
+                        <div class="card bg-dark text-white shadow-lg border-0 rounded h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="fw-bold">${review.user.name}</h5>
+                                <p>${review.review}</p>
+                                <p class="text-muted small mt-auto">${new Date(review.created_at).toLocaleString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        } else {
+            reviewsContainer.html('<p class="text-white text-center">No reviews available.</p>');
+        }
+    }
+
+    loadReviews();
+});
+
     </script>
 
     <style>

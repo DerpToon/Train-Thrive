@@ -34,6 +34,8 @@ Route::post('/logout', fn() => \Illuminate\Support\Facades\Auth::logout() && red
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
 
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
     // Dashboard
@@ -57,7 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/calculatorUpdate', [CalculatorController::class, 'update'])->name('calculatorUpdate.store');
 
     // Reviews
-    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
     // Cart

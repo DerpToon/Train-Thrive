@@ -15,25 +15,19 @@ class ReviewController extends Controller
     {
         $reviews = Review::with('user')->get();
         $newestReview = $reviews->sortByDesc('created_at')->first();
-
-        // Filter out the newest review from the collection
+    
         $remainingReviews = $reviews->where('id', '!=', optional($newestReview)->id);
-
-        // Group reviews by user_id to ensure only one review per user
-        $uniqueReviews = $remainingReviews->unique('user_id');
-
-        // Shuffle the remaining reviews to display them randomly
-        $randomReviews = $uniqueReviews->shuffle();
-
-        // Combine the newest review with the shuffled reviews
+        $uniqueReviews = $remainingReviews->unique('user_id')->shuffle()->take(2);
+    
         $finalReviews = collect();
         if ($newestReview) {
             $finalReviews->push($newestReview);
         }
-        $finalReviews = $finalReviews->merge($randomReviews);
-
-        return response()->json(['reviews' => $finalReviews]);
+        $finalReviews = $finalReviews->merge($uniqueReviews);
+    
+        return response()->json(['reviews' => $finalReviews->values()]);
     }
+    
 
     /**
      * Store a new review.

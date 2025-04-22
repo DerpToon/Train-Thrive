@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Cart;
 
 class ProductController extends Controller
 {
@@ -14,17 +15,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $perPage = request()->get('per_page', 10); // Default to 10 if 'per_page' is not provided
+        $perPage = request()->get('per_page', 10); 
         $products = Product::with('category')->paginate($perPage);
         return view('admin.product.productindex', compact('products'));
     }
+
     public function move()
     {
         $categories = Category::with('products')->get();
         $cartItems = Auth::check() ? Cart::where('user_id', Auth::id())->pluck('product_id')->toArray() : [];
         return view('products', compact('categories', 'cartItems'));
     }
-
 
     /**
      * Show the form for creating a new product.
