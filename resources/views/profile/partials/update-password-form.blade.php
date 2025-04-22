@@ -1,6 +1,5 @@
 <form method="POST" action="{{ route('password.update') }}">
     @csrf
-    @method('PUT')
 
     <div class="mb-3">
         <label for="current_password" class="form-label text-success">Current Password</label>

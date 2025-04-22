@@ -15,6 +15,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
+
 
 // Public Routes
 Route::get('/', fn() => view('home'))->name('home');
@@ -137,6 +139,12 @@ Route::get('/products/move', [ProductController::class, 'move'])->name('products
 // Checkout Routes
 Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
 Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
+
+Route::put('/reset-password', [PasswordController::class, 'update'])->name('password.update');
+Route::get('/reset-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');    
+
 
 
 require __DIR__.'/auth.php';
