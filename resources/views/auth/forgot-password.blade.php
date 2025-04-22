@@ -3,6 +3,8 @@
 @section('title', 'Forgot Password')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <body class="bg-dark text-white">
     <div class="container mt-4">
     <div class="d-flex justify-content-start mb-4">

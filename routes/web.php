@@ -13,6 +13,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 // Public Routes
 Route::get('/', fn() => view('home'))->name('home');
@@ -135,5 +137,6 @@ Route::get('/products/move', [ProductController::class, 'move'])->name('products
 // Checkout Routes
 Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
 Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
+
 
 require __DIR__.'/auth.php';
