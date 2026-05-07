@@ -1,66 +1,237 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Train Thrive
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Train Thrive is a Laravel-based fitness and e-commerce web application. It combines workout browsing, nutrition/macros tools, product shopping, cart management, checkout, reviews, order management, and admin controls in one platform.
 
-## About Laravel
+## Project Type
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Advanced Web Project
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Main Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- User registration, login, logout, profile management, and password reset
+- Google authentication support through Laravel Socialite
+- Workout library with filtering by level and muscle group
+- Nutrition/calculator section for calories, protein, carbohydrates, and fats
+- Product catalog with categories
+- Cart system with add, update, and remove actions
+- Checkout flow that creates orders and order items
+- Review system
+- Admin dashboard for managing:
+  - Workouts
+  - Calculators / food items
+  - Products
+  - Categories
+  - Users
+  - Reviews
+  - Orders
+- Product image upload support
+- Blade-based frontend styled with Tailwind/Vite assets
 
-## Learning Laravel
+## Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend:** Laravel 12, PHP 8.2+
+- **Frontend:** Blade, Tailwind CSS, JavaScript, Alpine.js
+- **Build Tool:** Vite
+- **Authentication:** Laravel Breeze, Laravel Socialite
+- **Database:** MySQL / MariaDB / SQLite depending on `.env` configuration
+- **Testing:** Pest / PHPUnit
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Make sure the following are installed on your machine:
 
-## Laravel Sponsors
+- PHP 8.2 or higher
+- Composer
+- Node.js and npm
+- MySQL, MariaDB, SQLite, or another Laravel-supported database
+- Git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Installation
 
-### Premium Partners
+Clone the repository:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/DerpToon/Train-Thrive.git
+cd Train-Thrive
+```
 
-## Contributing
+Install PHP dependencies:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer install
+```
 
-## Code of Conduct
+Install frontend dependencies:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+Create the environment file:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+Generate the application key:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan key:generate
+```
+
+Configure your database settings inside `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=train_thrive
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Run the database migrations:
+
+```bash
+php artisan migrate
+```
+
+If the project contains seeders, you may also run:
+
+```bash
+php artisan db:seed
+```
+
+Link storage for uploaded images:
+
+```bash
+php artisan storage:link
+```
+
+Start the development servers:
+
+```bash
+npm run dev
+php artisan serve
+```
+
+You can also use the included Composer development script:
+
+```bash
+composer run dev
+```
+
+Then open the local Laravel URL shown in your terminal, usually:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Google Authentication Setup
+
+If you want Google login to work, add your Google OAuth credentials to `.env`:
+
+```env
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/auth/google/callback
+```
+
+Make sure the redirect URI is also configured in your Google Cloud Console.
+
+## Important Routes
+
+The project contains public, authenticated, cart, checkout, review, and admin routes.
+
+Common public pages include:
+
+- `/`
+- `/about-us`
+- `/shop`
+- `/products`
+- `/products/{category}`
+- `/reviews`
+
+Authenticated pages include:
+
+- `/dashboard`
+- `/profile`
+- `/workout`
+- `/workouts`
+- `/calculator`
+- `/cart`
+- `/checkout`
+
+Admin routes are grouped under:
+
+```text
+/admin
+```
+
+## Project Structure
+
+```text
+app/
+  Http/Controllers/      Application controllers
+  Models/                Eloquent models
+
+database/
+  migrations/            Database table definitions
+  seeders/               Optional test/default data
+
+resources/
+  views/                 Blade templates
+  css/                   Frontend styles
+  js/                    Frontend JavaScript
+
+routes/
+  web.php                Main web routes
+  auth.php               Authentication routes
+
+public/                  Public assets
+storage/                 Uploaded files and generated storage files
+```
+
+## Main Models
+
+- User
+- Workout
+- Calculator
+- Category
+- Product
+- Cart
+- Order
+- OrderItem
+- Review
+
+## Admin Notes
+
+The admin area allows authorized users to manage core website data. Before using admin pages, make sure your user table has the correct admin role or permission logic required by the project.
+
+## Testing
+
+To run the test suite:
+
+```bash
+php artisan test
+```
+
+or:
+
+```bash
+composer test
+```
+
+## Future Improvements
+
+- Add stronger role and permission management
+- Improve product search and filtering
+- Add order status notifications
+- Add payment gateway integration
+- Improve dashboard analytics
+- Add more test coverage
+- Improve mobile responsiveness for all pages
+
+## Author
+
+Train Thrive was developed as an advanced web project.
